@@ -1,0 +1,8 @@
+User-Agent: *
+Allow: /
+Disallow: /cwaterv2/api/
+Disallow: /cwaterv2/en/search
+Disallow: /cwaterv2/ar/search
+
+Host: https://nsd-eg.com/cwaterv2
+Sitemap: https://nsd-eg.com/cwaterv2/sitemap.xml
