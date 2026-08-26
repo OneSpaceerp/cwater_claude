@@ -1,0 +1,61 @@
+{
+  "$comment": [
+    "Deployment targets for scripts/build-deploy.mjs — run `npm run deploy -- <target>`.",
+    "",
+    "platform  \"vercel\" builds a full Next app: route handlers run, images are",
+    "          optimised, headers and redirects come from next.config.ts, and the",
+    "          forms POST /api/leads. Nothing is uploaded — Vercel builds from the",
+    "          repository, so the script prints the environment it needs instead.",
+    "          \"apache\" builds a static export for cPanel: no server, forms POST",
+    "          the PHP script, headers and redirects come from .htaccess.",
+    "",
+    "siteUrl   Absolute origin INCLUDING any subdirectory, no trailing slash.",
+    "          Canonical tags, hreflang, Open Graph and the sitemap derive from it.",
+    "basePath  The subdirectory alone, or \"\" at a domain root. A build made for one",
+    "          prefix cannot be served from another: every asset URL is baked in.",
+    "noindex   Sends X-Robots-Tag: noindex on every response. True for any address",
+    "          that is not the one the brand is meant to be found at.",
+    "leads     Where the forms deliver. On apache these are written into",
+    "          api/leads.php; on vercel they are printed as environment variables,",
+    "          because a Node build reads them at runtime rather than at build time.",
+    "          `from` MUST be a mailbox on a domain verified with the mail provider,",
+    "          or the message fails SPF and is filed as spam."
+  ],
+  "production": {
+    "label": "cw-eg.com — the live site",
+    "platform": "apache",
+    "siteUrl": "https://cw-eg.com",
+    "basePath": "",
+    "noindex": false,
+    "leads": {
+      "commercial": "info@cw-eg.com",
+      "technical": "info@cw-eg.com",
+      "from": "website@cw-eg.com"
+    }
+  },
+  "staging": {
+    "label": "nsd-eg.com/cwaterv2 — cPanel test copy",
+    "platform": "apache",
+    "siteUrl": "https://nsd-eg.com/cwaterv2",
+    "basePath": "/cwaterv2",
+    "noindex": true,
+    "leads": {
+      "commercial": "info@cw-eg.com",
+      "technical": "info@cw-eg.com",
+      "from": "website@nsd-eg.com"
+    }
+  },
+  "vercel": {
+    "label": "cwater-claude.vercel.app — live host (Node)",
+    "platform": "vercel",
+    "siteUrl": "https://cwater-claude.vercel.app",
+    "basePath": "",
+    "$note": "noindex stays true until a real domain is attached: a *.vercel.app copy of the whole site would compete with cw-eg.com in search. Once cw-eg.com points at Vercel, set siteUrl to https://cw-eg.com and noindex to false.",
+    "noindex": true,
+    "leads": {
+      "commercial": "info@cw-eg.com",
+      "technical": "info@cw-eg.com",
+      "from": "website@cw-eg.com"
+    }
+  }
+}

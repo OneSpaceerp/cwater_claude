@@ -1,0 +1,13 @@
+node_modules/
+.next/
+out/
+*.zip
+
+# Secrets. `.env.example` is committed and holds no values.
+.env
+.env.local
+.env*.local
+
+*.tsbuildinfo
+next-env.d.ts
+.DS_Store

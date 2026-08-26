@@ -1,0 +1,186 @@
+# =============================================================================
+#  C-Water — Apache configuration for the static export
+# =============================================================================
+#  GENERATED FILE — do not edit this copy.
+#  Source: scripts/htaccess.template, written by scripts/build-deploy.mjs.
+#  Edit the template and rebuild, or the next deploy overwrites your changes.
+#
+{{DEPLOY_NOTE}}
+#
+#  Upload it alongside everything else in out/, into the directory the site is
+#  served from.
+#
+#  It replaces the four things next.config.ts used to do on a Node host:
+#  security headers, the / → /en redirect, extensionless URLs, and caching.
+#
+#  Every directive below is supported by LiteSpeed as well as Apache, which
+#  matters because most cPanel accounts run LiteSpeed.
+# =============================================================================
+
+Options -Indexes -MultiViews
+DirectoryIndex index.html
+
+#  The export writes both `en.html` (the homepage) and an `en/` directory (the
+#  pages beneath it). With DirectorySlash on, Apache would redirect /en to /en/
+#  and the rule below would send it straight back — an infinite loop. Off also
+#  means bare directory URLs simply 404, which is what should happen: no page
+#  on this site is a directory listing.
+DirectorySlash Off
+
+# -----------------------------------------------------------------------------
+#  1. Rewrites
+# -----------------------------------------------------------------------------
+#  Order matters throughout this block. Each rule assumes the ones above it
+#  have already run.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase {{REWRITE_BASE}}
+
+  # --- HTTPS ---------------------------------------------------------------
+  # The second condition covers hosts that terminate TLS at a proxy and pass
+  # the original scheme through; without it those hosts loop.
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+  # --- One address per page -------------------------------------------------
+  # Matches on THE_REQUEST, the original request line, so it fires only for a
+  # visitor who typed the extension — never for the internal rewrite further
+  # down, which leaves THE_REQUEST untouched.
+  RewriteCond %{THE_REQUEST} \s/+(.+)\.html[\s?] [NC]
+  RewriteRule ^ /%1 [R=301,L]
+
+  # --- Language root -------------------------------------------------------
+  # The site has no locale-neutral homepage; English is the default entry.
+  # 302, not 301: if C-Water later adds Accept-Language negotiation or makes
+  # Arabic the default, a cached permanent redirect would be very hard to undo.
+  # The substitution is relative, so RewriteBase supplies the prefix and the
+  # rule reads the same whether the site sits at a domain root or in a folder.
+  RewriteRule ^$ en [R=302,L]
+
+  # --- The form endpoint is PHP, never a rewrite target --------------------
+  RewriteRule ^api/ - [L]
+
+  # --- Drop a trailing slash ------------------------------------------------
+  # Canonical URLs on this site carry no trailing slash, so /en/solutions/ is
+  # sent to /en/solutions rather than answering as a second address for the
+  # same page.
+  RewriteRule ^(.+?)/+$ $1 [R=301,L]
+
+  # --- Extensionless HTML ---------------------------------------------------
+  # The export writes en/solutions.html; the site links to /en/solutions.
+  # This runs before the -f / -d check below because `en/` is a real directory
+  # AND `en.html` is a real file — the page has to win.
+  RewriteCond %{REQUEST_FILENAME}.html -f
+  RewriteRule ^(.*)$ $1.html [L]
+
+  # --- Anything else that exists on disk is served as-is --------------------
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+</IfModule>
+
+ErrorDocument 404 {{BASE}}/404.html
+
+# -----------------------------------------------------------------------------
+#  2. Security headers
+# -----------------------------------------------------------------------------
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+
+  # Sent only over HTTPS — mod_ssl sets the HTTPS variable on secure
+  # connections and leaves it unset otherwise. Comment this out until the
+  # certificate is live and every subdomain is served over TLS: HSTS is hard
+  # to withdraw once browsers have cached it.
+  Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains" env=HTTPS
+
+  # PHP advertises its version here; there is no reason to.
+  Header always unset X-Powered-By
+
+{{NOINDEX}}
+</IfModule>
+
+# -----------------------------------------------------------------------------
+#  3. Caching
+# -----------------------------------------------------------------------------
+#  Everything under /_next/static carries a content hash in its name, so it can
+#  never go stale: a changed file is a different URL. Flagged with SetEnvIf
+#  rather than an <If> expression, because LiteSpeed — which most cPanel
+#  accounts actually run — does not implement the expression parser.
+<IfModule mod_setenvif.c>
+  SetEnvIf Request_URI "^{{BASE}}/_next/static/" CW_IMMUTABLE=1
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header set Cache-Control "public, max-age=31536000, immutable" env=CW_IMMUTABLE
+
+  # HTML is rewritten on every deploy and its name never changes, so it must
+  # be revalidated every time.
+  <FilesMatch "\.html$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+
+  # The search index changes with the content; a day is a fair compromise.
+  <FilesMatch "^search-index-(en|ar)\.json$">
+    Header set Cache-Control "public, max-age=86400"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/svg+xml  "access plus 1 year"
+  ExpiresByType image/png      "access plus 1 year"
+  ExpiresByType image/jpeg     "access plus 1 year"
+  ExpiresByType image/webp     "access plus 1 year"
+  ExpiresByType image/avif     "access plus 1 year"
+  ExpiresByType font/woff2     "access plus 1 year"
+  ExpiresByType text/html      "access plus 0 seconds"
+</IfModule>
+
+# -----------------------------------------------------------------------------
+#  4. Compression
+# -----------------------------------------------------------------------------
+#  Roughly a 4x reduction on HTML, CSS and JavaScript. Images and fonts are
+#  already compressed and are deliberately left out.
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml
+  AddOutputFilterByType DEFLATE application/javascript application/x-javascript
+  AddOutputFilterByType DEFLATE application/json application/manifest+json
+  AddOutputFilterByType DEFLATE image/svg+xml application/xml
+</IfModule>
+
+<IfModule mod_brotli.c>
+  AddOutputFilterByType BROTLI_COMPRESS text/html text/plain text/css text/xml
+  AddOutputFilterByType BROTLI_COMPRESS application/javascript application/x-javascript
+  AddOutputFilterByType BROTLI_COMPRESS application/json application/manifest+json
+  AddOutputFilterByType BROTLI_COMPRESS image/svg+xml application/xml
+</IfModule>
+
+# -----------------------------------------------------------------------------
+#  5. Character set
+# -----------------------------------------------------------------------------
+#  The Arabic pages depend on this. The HTML declares UTF-8 itself, but a
+#  charset in the server's Content-Type header overrides the meta tag.
+AddDefaultCharset UTF-8
+<IfModule mod_mime.c>
+  AddCharset UTF-8 .html .css .js .json .xml .svg .webmanifest
+  AddType application/manifest+json .webmanifest
+</IfModule>
+
+# -----------------------------------------------------------------------------
+#  6. Keep non-public files non-public
+# -----------------------------------------------------------------------------
+#  Nothing matching this should reach the document root in the first place —
+#  this is the second line of defence if a source file is uploaded by mistake.
+<FilesMatch "(^\.|\.(jsonl|log|md|ts|tsx|env|lock|bak|sql)$|~$)">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>

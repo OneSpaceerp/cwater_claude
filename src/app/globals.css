@@ -1,0 +1,686 @@
+@import 'tailwindcss';
+
+/* ============================================================================
+   C-WATER DESIGN SYSTEM
+   Brand source of truth: logo-300x124.png
+     - Signal blue  #188ECE  (droplet mark)
+     - Wordmark grey #B1AFB1 (C-WATER lettering)
+   Everything else is derived from those two values.
+   ========================================================================= */
+
+@theme {
+  /* --- Brand: signal blue ------------------------------------------------ */
+  --color-signal-50: #eef8fd;
+  --color-signal-100: #d5edfa;
+  --color-signal-200: #addcf4;
+  --color-signal-300: #77c6ec;
+  --color-signal-400: #3facdf;
+  --color-signal-500: #188ece; /* ← exact brand value */
+  --color-signal-600: #0f72ad;
+  --color-signal-700: #0c5b8b;
+  --color-signal-800: #0d4c72;
+  --color-signal-900: #10405f;
+  --color-signal-950: #0a2941;
+
+  /* --- Brand: wordmark steel --------------------------------------------- */
+  --color-steel-50: #f7f7f7;
+  --color-steel-100: #ededed;
+  --color-steel-200: #dcdbdc;
+  --color-steel-300: #c6c4c6;
+  --color-steel-400: #b1afb1; /* ← exact brand value */
+  --color-steel-500: #918f91;
+  --color-steel-600: #6f6d6f;
+  --color-steel-700: #545354;
+  --color-steel-800: #3b3a3b;
+  --color-steel-900: #262526;
+
+  /* --- Technical ink: the deep canvas ------------------------------------ */
+  /* A slate ramp carrying the brand hue (~205deg) so darks feel like water,
+     not like generic charcoal. */
+  --color-ink-50: #f1f5f8;
+  --color-ink-100: #dfe7ee;
+  --color-ink-200: #becdda;
+  --color-ink-300: #8ca3b8;
+  /* Lightened from #5b7590 so muted text clears WCAG AA (4.5:1) on every dark
+     surface in the ramp — ink-950 5.43, ink-900 5.11, ink-800 4.64. ink-400 is
+     the muted step for DARK canvases; light canvases use ink-500 and below. */
+  --color-ink-400: #6e89a4;
+  --color-ink-500: #34506b;
+  --color-ink-600: #21384e;
+  --color-ink-700: #16293c;
+  --color-ink-800: #0e1e2e;
+  --color-ink-900: #081420;
+  --color-ink-950: #050b12;
+
+  /* --- Restrained semantics ---------------------------------------------- */
+  --color-ok-500: #2e9e6b;
+  --color-ok-900: #0d3323;
+  --color-warn-500: #c98a16;
+  --color-warn-900: #3d2a06;
+  /* alert-500 is the fill (white on it = 4.84); alert-400 is the text step for
+     dark canvases, where alert-500 only reaches 4.08. */
+  --color-alert-400: #d15a4d;
+  --color-alert-500: #c4483c;
+  --color-alert-900: #3b1512;
+
+  /* --- Type ---------------------------------------------------------------
+     Display  : Archivo        — industrial grotesque, editorial at scale
+     Body     : Inter          — neutral, high legibility for technical prose
+     Technical: IBM Plex Mono  — instrument labels, data, spec tables
+     Arabic   : Cairo          — contemporary Arabic sans, display through text
+     ------------------------------------------------------------------------ */
+  --font-display: var(--font-archivo), 'Archivo', system-ui, sans-serif;
+  --font-sans: var(--font-inter), 'Inter', system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), 'IBM Plex Mono', ui-monospace, monospace;
+  --font-arabic: var(--font-cairo), 'Cairo', 'Noto Sans Arabic', system-ui, sans-serif;
+
+  /* --- Editorial type scale (desktop caps; clamped for fluidity) ---------- */
+  --text-display: clamp(2.75rem, 1.2rem + 6.4vw, 6rem);
+  --text-display--line-height: 0.94;
+  --text-display--letter-spacing: -0.035em;
+  --text-display--font-weight: 700;
+
+  --text-h1: clamp(2.25rem, 1.1rem + 4.6vw, 4.5rem);
+  --text-h1--line-height: 0.98;
+  --text-h1--letter-spacing: -0.03em;
+  --text-h1--font-weight: 700;
+
+  --text-h2: clamp(1.75rem, 1rem + 2.9vw, 3.25rem);
+  --text-h2--line-height: 1.04;
+  --text-h2--letter-spacing: -0.025em;
+  --text-h2--font-weight: 700;
+
+  --text-h3: clamp(1.375rem, 1rem + 1.4vw, 2.25rem);
+  --text-h3--line-height: 1.12;
+  --text-h3--letter-spacing: -0.02em;
+  --text-h3--font-weight: 600;
+
+  --text-h4: clamp(1.125rem, 0.95rem + 0.7vw, 1.5rem);
+  --text-h4--line-height: 1.25;
+  --text-h4--letter-spacing: -0.012em;
+  --text-h4--font-weight: 600;
+
+  --text-lead: clamp(1.0625rem, 0.98rem + 0.42vw, 1.3125rem);
+  --text-lead--line-height: 1.55;
+
+  --text-tech: 0.8125rem;
+  --text-tech--line-height: 1.5;
+  --text-tech--letter-spacing: 0.02em;
+
+  --text-label: 0.6875rem;
+  --text-label--line-height: 1.2;
+  --text-label--letter-spacing: 0.16em;
+
+  /* --- Shape: precision over softness ------------------------------------ */
+  --radius-xs: 1px;
+  --radius-sm: 2px;
+  --radius-md: 3px;
+  --radius-lg: 4px;
+  --radius-xl: 6px;
+
+  /* --- Motion ------------------------------------------------------------- */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-flow: cubic-bezier(0.37, 0, 0.28, 1);
+
+  /* --- Layout ------------------------------------------------------------- */
+  --spacing-gutter: 1.5rem;
+  --container-page: 90rem; /* 1440px */
+  --container-prose: 46rem;
+}
+
+/* ============================================================================
+   BASE
+   ========================================================================= */
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    border-color: var(--color-ink-200);
+  }
+
+  :root {
+    color-scheme: light;
+    --header-h: 4.5rem;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--header-h) + 1.5rem);
+  }
+
+  body {
+    background-color: #ffffff;
+    color: var(--color-ink-900);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: 'kern' 1, 'liga' 1, 'cv05' 1;
+    overflow-x: clip;
+  }
+
+  /* Arabic gets the matched Plex pair across every role, including display,
+     so hierarchy reads identically in both directions. */
+  [lang='ar'] body,
+  [lang='ar'] {
+    font-family: var(--font-arabic);
+  }
+  [lang='ar'] .font-display,
+  [lang='ar'] h1,
+  [lang='ar'] h2,
+  [lang='ar'] h3,
+  [lang='ar'] h4 {
+    font-family: var(--font-arabic);
+  }
+  /* Latin product names inside Arabic copy stay LTR and keep Latin type. */
+  [lang='ar'] .latin {
+    font-family: var(--font-sans);
+    direction: ltr;
+    unicode-bidi: isolate;
+  }
+  /* Numerals and units stay legible and LTR in Arabic technical content. */
+  [lang='ar'] .num {
+    direction: ltr;
+    unicode-bidi: isolate;
+    font-family: var(--font-mono);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Visible, high-contrast focus on every interactive surface. */
+  :focus-visible {
+    outline: 2px solid var(--color-signal-500);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+  .on-dark :focus-visible,
+  .theme-dark :focus-visible {
+    outline-color: var(--color-signal-300);
+  }
+
+  ::selection {
+    background-color: var(--color-signal-500);
+    color: #fff;
+  }
+
+  /* Hide the scrollbar on horizontal rails without removing keyboard scroll. */
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ============================================================================
+   COMPONENT PRIMITIVES
+   ========================================================================= */
+
+@layer components {
+  /* --- Page container ---------------------------------------------------- */
+  .container-page {
+    width: 100%;
+    max-width: var(--container-page);
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .container-page {
+      padding-inline: 2.5rem;
+    }
+  }
+  @media (min-width: 1280px) {
+    .container-page {
+      padding-inline: 4rem;
+    }
+  }
+
+  /* --- Section rhythm ---------------------------------------------------- */
+  .section {
+    padding-block: clamp(4rem, 2.5rem + 6vw, 8.5rem);
+  }
+  .section-tight {
+    padding-block: clamp(3rem, 2rem + 4vw, 5.5rem);
+  }
+
+  /* --- The engineering label ---------------------------------------------
+     Mono, letterspaced, uppercase. Used for every eyebrow, spec key and
+     status readout. This is the single most repeated brand signal.
+     ------------------------------------------------------------------------ */
+  .u-label {
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    line-height: 1.2;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  /* Arabic has no uppercase, and a Latin mono face has no Arabic glyphs — a
+     letterspaced smallcaps label set in Plex Mono would fall back glyph by
+     glyph and read as broken type. Under RTL the label keeps its role but
+     takes the Arabic face, normal casing and a tighter track. Latin runs
+     inside it (product names, pH, ORP) are re-isolated back to mono below. */
+  [lang='ar'] .u-label {
+    font-family: var(--font-arabic);
+    font-size: 0.75rem;
+    letter-spacing: 0.01em;
+    text-transform: none;
+    font-weight: 600;
+  }
+  /* Both the descendant case (Latin run inside an Arabic label) and the
+     same-element case (a label that *is* a Latin product name, e.g. a partner
+     name on a card) need the Latin face back. */
+  [lang='ar'] .u-label .latin,
+  [lang='ar'] .u-label.latin {
+    font-family: var(--font-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* --- Blueprint grid ----------------------------------------------------
+     A fine technical grid laid behind dark canvases. Two densities layered
+     so it reads as drafting paper rather than as a pattern swatch.
+     ------------------------------------------------------------------------ */
+  .blueprint {
+    position: relative;
+    isolation: isolate;
+  }
+  .blueprint::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image:
+      linear-gradient(to right, color-mix(in srgb, var(--color-signal-500) 8%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in srgb, var(--color-signal-500) 8%, transparent) 1px, transparent 1px),
+      linear-gradient(to right, color-mix(in srgb, var(--color-signal-500) 4%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in srgb, var(--color-signal-500) 4%, transparent) 1px, transparent 1px);
+    background-size:
+      8rem 8rem,
+      8rem 8rem,
+      1rem 1rem,
+      1rem 1rem;
+    mask-image: radial-gradient(ellipse 100% 70% at 50% 0%, #000 30%, transparent 78%);
+    pointer-events: none;
+  }
+
+  /* --- Hairline rules ----------------------------------------------------- */
+  .rule {
+    border-block-start: 1px solid var(--color-ink-200);
+  }
+  .on-dark .rule,
+  .theme-dark .rule {
+    border-color: color-mix(in srgb, var(--color-signal-300) 16%, transparent);
+  }
+
+  /* --- Technical module (the card) ----------------------------------------
+     Hairline border, no drop shadow, a top tick mark that extends on hover.
+     Reads as an instrument panel, not a SaaS card.
+     ------------------------------------------------------------------------ */
+  .module {
+    position: relative;
+    border: 1px solid var(--color-ink-200);
+    background-color: #fff;
+    border-radius: var(--radius-md);
+    transition:
+      border-color 0.35s var(--ease-out-expo),
+      background-color 0.35s var(--ease-out-expo),
+      transform 0.35s var(--ease-out-expo);
+  }
+  .module::after {
+    content: '';
+    position: absolute;
+    inset-block-start: -1px;
+    inset-inline-start: -1px;
+    width: 2rem;
+    height: 2px;
+    background-color: var(--color-signal-500);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.45s var(--ease-out-expo);
+  }
+  [dir='rtl'] .module::after {
+    transform-origin: right center;
+  }
+  .module:hover::after,
+  .module:focus-within::after {
+    transform: scaleX(1);
+  }
+  .module:hover {
+    border-color: var(--color-ink-300);
+  }
+
+  .theme-dark .module,
+  .on-dark .module {
+    background-color: color-mix(in srgb, var(--color-signal-500) 4%, var(--color-ink-900));
+    border-color: color-mix(in srgb, var(--color-signal-300) 14%, transparent);
+  }
+  .theme-dark .module:hover,
+  .on-dark .module:hover {
+    border-color: color-mix(in srgb, var(--color-signal-300) 34%, transparent);
+    background-color: color-mix(in srgb, var(--color-signal-500) 8%, var(--color-ink-900));
+  }
+
+  /* --- The flow line ------------------------------------------------------
+     The site's signature motif: a hairline carrying a travelling luminous
+     packet. Used in dividers, diagrams and the hero. Encodes "signals move".
+     ------------------------------------------------------------------------ */
+  .flow-rule {
+    position: relative;
+    height: 1px;
+    width: 100%;
+    background-color: color-mix(in srgb, var(--color-signal-500) 22%, transparent);
+    overflow: hidden;
+  }
+  .flow-rule::after {
+    content: '';
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: -30%;
+    width: 30%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--color-signal-400),
+      color-mix(in srgb, var(--color-signal-200) 90%, transparent),
+      transparent
+    );
+    animation: flow-travel 4.5s var(--ease-flow) infinite;
+  }
+  [dir='rtl'] .flow-rule::after {
+    animation-name: flow-travel-rtl;
+  }
+
+  @keyframes flow-travel {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(433%);
+    }
+  }
+  @keyframes flow-travel-rtl {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-433%);
+    }
+  }
+
+  /* --- Prose (knowledge articles) ----------------------------------------- */
+  .prose-tech {
+    max-width: var(--container-prose);
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: var(--color-ink-700);
+  }
+  .prose-tech > * + * {
+    margin-block-start: 1.35em;
+  }
+  .prose-tech h2 {
+    font-size: var(--text-h3);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--color-ink-950);
+    margin-block-start: 2.75em;
+    padding-block-start: 1.25rem;
+    border-block-start: 1px solid var(--color-ink-200);
+  }
+  .prose-tech h3 {
+    font-size: var(--text-h4);
+    color: var(--color-ink-950);
+    margin-block-start: 2em;
+  }
+  .prose-tech ul,
+  .prose-tech ol {
+    padding-inline-start: 1.35em;
+  }
+  .prose-tech ul {
+    list-style: none;
+    padding-inline-start: 0;
+  }
+  .prose-tech ul > li {
+    position: relative;
+    padding-inline-start: 1.5rem;
+  }
+  .prose-tech ul > li + li {
+    margin-block-start: 0.6em;
+  }
+  .prose-tech ul > li::before {
+    content: '';
+    position: absolute;
+    inset-inline-start: 0;
+    inset-block-start: 0.7em;
+    width: 0.5rem;
+    height: 1px;
+    background-color: var(--color-signal-500);
+  }
+  .prose-tech ol {
+    list-style: none;
+    counter-reset: step;
+    padding-inline-start: 0;
+  }
+  .prose-tech ol > li {
+    position: relative;
+    counter-increment: step;
+    padding-inline-start: 2.25rem;
+  }
+  .prose-tech ol > li + li {
+    margin-block-start: 0.7em;
+  }
+  .prose-tech ol > li::before {
+    content: counter(step, decimal-leading-zero);
+    position: absolute;
+    inset-inline-start: 0;
+    inset-block-start: 0.15em;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    color: var(--color-signal-600);
+  }
+  .prose-tech strong {
+    color: var(--color-ink-950);
+    font-weight: 600;
+  }
+  .prose-tech a {
+    color: var(--color-signal-700);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+  }
+  .prose-tech a:hover {
+    color: var(--color-signal-500);
+  }
+
+  /* --- Scroll rail -------------------------------------------------------- */
+  .rail {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 1.25rem;
+  }
+  .rail > * {
+    scroll-snap-align: start;
+    flex: 0 0 auto;
+  }
+}
+
+/* ============================================================================
+   UTILITIES
+   ========================================================================= */
+
+@layer utilities {
+  /* --- Arabic type scale ---------------------------------------------------
+     The Latin scale is set tight — 0.94 line-height and -0.035em tracking at
+     display size — which is right for Archivo and wrong for Arabic:
+
+       · Arabic is a connected script. Negative tracking pulls the joins apart
+         and makes a word read as fragments.
+       · Arabic ink is taller than Latin at the same size. Measured on Cairo at
+         96px, the glyphs occupy 108px against a 90px line box — multi-line
+         headings collide.
+
+     These rules live in the utilities layer because the `.text-*` classes that
+     carry the Latin metrics are generated there; a base-layer override would
+     lose regardless of specificity. The sizes are deliberately left alone, so
+     the two languages keep the same visual hierarchy and the same page rhythm.
+     ---------------------------------------------------------------------- */
+  /* Measured on Cairo across 36–96px at weights 600–700, the worst real Arabic
+     headline string occupies 1.47x the font size from the top of a mark to the
+     bottom of a descender. The Latin ramp bottoms out at 0.94, which overlaps
+     by nearly half a line.
+
+     One value across the whole Arabic heading scale rather than the tightening
+     ramp the Latin scale uses: 1.5 clears the measured extent at every size,
+     and in Arabic the hierarchy is carried by size and weight, not by leading
+     and tracking. */
+  [lang='ar'] .text-display,
+  [lang='ar'] .text-h1,
+  [lang='ar'] .text-h2,
+  [lang='ar'] .text-h3,
+  [lang='ar'] .text-h4 {
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+
+  /* Article prose sets its own heading metrics, tuned for the Latin face; the
+     same reasoning applies to them. */
+  [lang='ar'] .prose-tech h2,
+  [lang='ar'] .prose-tech h3 {
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+  [lang='ar'] .prose-tech ol > li::before {
+    /* The step counter is a Latin numeral inside RTL copy. */
+    font-family: var(--font-mono);
+  }
+
+  /* `tracking-tight` is applied to 67 headings across the site for the Latin
+     display face. Arabic is connected, so negative tracking closes the joins
+     and the word stops reading as one unit. Neutralised here — except on
+     `.latin`, where the run genuinely is Latin (a product name inside Arabic
+     copy) and should keep its tracking. */
+  [lang='ar'] .tracking-tight:not(.latin),
+  [lang='ar'] .tracking-tighter:not(.latin) {
+    letter-spacing: 0;
+  }
+
+  /* Arabic carries more leading than Latin at the same size — the script has
+     no x-height to rest on, so lines need the extra separation to stay legible
+     in long technical paragraphs. */
+  [lang='ar'] .text-lead {
+    line-height: 1.7;
+  }
+  [lang='ar'] body,
+  [lang='ar'] .prose-tech {
+    line-height: 1.8;
+  }
+
+  /* --- Contrast safety net -------------------------------------------------
+     A single mid-grey cannot clear 4.5:1 against both white and near-black, so
+     the muted steps are canvas-dependent: ink-500/600 read on paper, ink-400/300
+     read on ink. Every dark band already carries .theme-dark (or .on-dark for a
+     dark card sitting on a light band), so remapping inside that context keeps
+     muted text accessible without each call site having to know its background.
+     ---------------------------------------------------------------------- */
+  .theme-dark .text-ink-500,
+  .on-dark .text-ink-500 {
+    color: var(--color-ink-400);
+  }
+  .theme-dark .text-ink-600,
+  .on-dark .text-ink-600 {
+    color: var(--color-ink-300);
+  }
+  .theme-dark .text-alert-500,
+  .on-dark .text-alert-500 {
+    color: var(--color-alert-400);
+  }
+
+  /* Numerals aligned in data tables and metric tiles. */
+  .tnum {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum' 1;
+  }
+
+  /* Skip-link, screen-reader text. */
+  .sr-only-focusable:not(:focus):not(:focus-within) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  /* Directional glyph: flips with writing direction so arrows never point
+     the wrong way in Arabic. */
+  .dir-flip {
+    display: inline-block;
+  }
+  [dir='rtl'] .dir-flip {
+    transform: scaleX(-1);
+  }
+
+  .mask-fade-inline-end {
+    mask-image: linear-gradient(to right, #000 82%, transparent 100%);
+  }
+  [dir='rtl'] .mask-fade-inline-end {
+    mask-image: linear-gradient(to left, #000 82%, transparent 100%);
+  }
+
+  /* Dark canvas helper — sets the local colour context for .module, .rule etc. */
+  .theme-dark {
+    color-scheme: dark;
+    background-color: var(--color-ink-950);
+    color: var(--color-ink-100);
+  }
+}
+
+/* ============================================================================
+   REDUCED MOTION
+   Every decorative animation stops. Content-revealing animations are handled
+   in JS (useReducedMotion) so content still appears, just without transition.
+   ========================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .flow-rule::after {
+    display: none;
+  }
+  /* SVG <animate> is SMIL, which the CSS animation reset above does not touch.
+     The diagrams gate these in JS via useReducedMotion, but the server renders
+     before hydration — this covers that first paint, and the JS-disabled case. */
+  .motion-only {
+    display: none;
+  }
+}
