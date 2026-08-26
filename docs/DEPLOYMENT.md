@@ -305,22 +305,47 @@ npm run deploy -- vercel
 
 That builds exactly what Vercel will build and prints the environment it needs.
 
+### Project configuration
+
+[`vercel.json`](../vercel.json) is committed, and its settings take precedence
+over anything in the dashboard:
+
+```json
+{
+  "framework": "nextjs",
+  "installCommand": "npm ci",
+  "buildCommand": "npm run deploy -- vercel"
+}
+```
+
+This matters because Vercel auto-detected the project while the repository still
+held a built static export, and settled on framework **Other** with no build
+step — a deployment that finished in a second and copied files. Committing the
+configuration means the correct build is version-controlled rather than
+remembered in a dashboard.
+
+The build command runs the deploy script rather than `next build` directly, for
+two reasons: it guarantees `prebuild` regenerates the search index, and it takes
+the site URL, the indexing rule and the forms endpoint from the `vercel` entry
+in `deploy.targets.json` — one source of truth shared with the cPanel targets.
+
+**So `NEXT_PUBLIC_SITE_URL` and `SITE_NOINDEX` do not need to be set by hand.**
+Change them in `deploy.targets.json` and push.
+
 ### Environment variables
 
-Set these in **Settings → Environment Variables**, for Production, Preview and
-Development. [`.env.example`](../.env.example) documents every one of them.
+Only the mail settings, because only they are secret. Set them in **Settings →
+Environment Variables** for Production, Preview and Development;
+[`.env.example`](../.env.example) documents every variable the app reads.
 
 | Variable | Value |
 | --- | --- |
-| `NEXT_PUBLIC_SITE_URL` | `https://cwater-claude.vercel.app` |
-| `SITE_NOINDEX` | `1` until a real domain is attached |
 | `RESEND_API_KEY` | from [resend.com](https://resend.com) |
 | `LEAD_FROM_EMAIL` | `website@cw-eg.com` |
 | `LEAD_TO_COMMERCIAL` | the sales inbox |
 | `LEAD_TO_TECHNICAL` | the engineering inbox |
 
-`NEXT_PUBLIC_SITE_URL` is read at build time, so **changing it needs a
-redeploy**, not just a save. The rest are read per request.
+These are read per request, so changing one takes effect without a rebuild.
 
 ### Mail
 
