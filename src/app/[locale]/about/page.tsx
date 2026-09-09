@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { PageHero } from '@/components/layout/PageHero';
+import { aboutStoreImage } from '@/content/imagery';
 import { PageCta } from '@/components/layout/RelatedSections';
 import { Band, SectionHeading } from '@/components/ui/Section';
 import { Reveal, RevealGroup, RevealItem } from '@/components/ui/Reveal';
@@ -166,6 +167,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         )}
         primaryCta={{ label: t(D.talkToEngineer, locale), href: localePath(locale, 'contact?intent=engineer') }}
         size="large"
+        image={aboutStoreImage}
         aside={
           <div className="border border-white/12 bg-ink-900/60 p-6">
             <p className="u-label text-signal-300">{t({ en: 'Serving industry since', ar: 'نخدم الصناعة منذ' }, locale)}</p>

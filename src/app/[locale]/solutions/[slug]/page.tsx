@@ -16,6 +16,7 @@ import { Reveal, RevealGroup, RevealItem } from '@/components/ui/Reveal';
 import { PointGrid } from '@/components/ui/Pieces';
 import { Icon } from '@/components/ui/Icon';
 import { dictionary as D } from '@/content/dictionary';
+import { solutionImages } from '@/content/imagery';
 import { partnerBySlug } from '@/content/partners';
 import { solutions, solutionBySlug } from '@/content/solutions';
 import { isLocale, localePath, LOCALES, t, type Locale } from '@/lib/i18n';
@@ -84,6 +85,7 @@ export default async function SolutionPage({
         primaryCta={{ label: t(solution.cta, locale), href: localePath(locale, 'request-solution') }}
         secondaryCta={{ label: t(D.requestQuote, locale), href: localePath(locale, 'request-quote') }}
         size="large"
+        image={solutionImages[solution.slug]}
       />
 
       {/* ---- 01 Why it matters ---- */}

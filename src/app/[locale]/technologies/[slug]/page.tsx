@@ -14,6 +14,7 @@ import { Reveal, RevealGroup, RevealItem } from '@/components/ui/Reveal';
 import { Arrow, Icon } from '@/components/ui/Icon';
 import { dictionary as D } from '@/content/dictionary';
 import { partnerBySlug } from '@/content/partners';
+import { technologyImages } from '@/content/imagery';
 import { technologies, technologyBySlug } from '@/content/technologies';
 import { isLocale, localePath, LOCALES, t, type Locale } from '@/lib/i18n';
 import { breadcrumbSchema, pageMetadata } from '@/lib/seo';
@@ -77,6 +78,7 @@ export default async function TechnologyPage({
         primaryCta={{ label: t(tech.cta, locale), href: localePath(locale, 'request-solution') }}
         secondaryCta={{ label: t(D.requestQuote, locale), href: localePath(locale, 'request-quote') }}
         size="large"
+        image={technologyImages[tech.slug]}
         aside={
           partner ? (
             <Link

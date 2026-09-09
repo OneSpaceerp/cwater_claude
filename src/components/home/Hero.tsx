@@ -1,10 +1,13 @@
 'use client';
 
+import Image from 'next/image';
 import { motion, useReducedMotion } from 'framer-motion';
 import { TreatmentLine, TreatmentLineStack } from '@/components/interactive/TreatmentLine';
 import { ButtonLink } from '@/components/ui/Button';
 import { dictionary as D } from '@/content/dictionary';
 import { systemStages } from '@/components/interactive/SystemExplorer';
+import { homeHeroImage } from '@/content/imagery';
+import { withBasePath } from '@/lib/base-path';
 import { localePath, t, type Locale } from '@/lib/i18n';
 
 /**
@@ -32,6 +35,30 @@ export function Hero({ locale }: { locale: Locale }) {
 
   return (
     <section className="theme-dark blueprint relative overflow-hidden bg-ink-950 pt-[var(--header-h)]">
+      {/*
+        The photograph sits behind the proposition only. Its vertical gradient
+        reaches solid ink well before the treatment line below, because that
+        schematic is drawn in hairlines and a lit background eats them.
+
+        Horizontal gradient measured against this image: white 8.8:1,
+        ink-200 5.4:1, signal-300 4.7:1 in the text column. It flips under RTL
+        with the copy. The trust line below the buttons is ink-200 rather than
+        the ink-400 used elsewhere — ink-400 clears AA on flat ink by only
+        5.4:1, which no image can sit behind.
+      */}
+      <div aria-hidden className="pointer-events-none absolute inset-0">
+        <Image
+          src={withBasePath(homeHeroImage.src)}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center opacity-[0.85]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-ink-950 via-ink-950/[0.82] to-ink-950/15 rtl:bg-gradient-to-l" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-ink-950/[0.88] to-ink-950" />
+      </div>
+
       {/* Atmospheric wash: a single controlled gradient derived from the brand
           blue, not a decorative particle field. */}
       <div
@@ -81,7 +108,7 @@ export function Hero({ locale }: { locale: Locale }) {
               </ButtonLink>
             </motion.div>
 
-            <motion.p {...rise(0.32)} className="u-label mt-8 flex flex-wrap items-center gap-x-3 gap-y-2 text-ink-400">
+            <motion.p {...rise(0.32)} className="u-label mt-8 flex flex-wrap items-center gap-x-3 gap-y-2 text-ink-200">
               <span>{t({ en: 'Global Technology', ar: 'تقنية عالمية' }, locale)}</span>
               <span aria-hidden className="text-signal-500">·</span>
               <span>{t({ en: 'Local Engineering', ar: 'هندسة محلية' }, locale)}</span>

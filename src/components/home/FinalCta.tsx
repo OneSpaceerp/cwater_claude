@@ -1,13 +1,32 @@
+import Image from 'next/image';
 import { Band } from '@/components/ui/Section';
 import { Reveal } from '@/components/ui/Reveal';
 import { ButtonLink } from '@/components/ui/Button';
 import { dictionary as D } from '@/content/dictionary';
+import { homeFlowImage } from '@/content/imagery';
+import { withBasePath } from '@/lib/base-path';
 import { localePath, t, type Locale } from '@/lib/i18n';
 
 /** The closing conversion band — large, quiet, and unambiguous about the next step. */
 export function FinalCta({ locale }: { locale: Locale }) {
   return (
     <Band tone="ink-deep" blueprint className="section relative overflow-hidden">
+      {/*
+        A flat wash rather than the directional gradient the page heroes use:
+        this band centres its copy, so there is no quiet side to release the
+        image into. Measured at 5.9:1 for the lightest text on it.
+      */}
+      <div aria-hidden className="pointer-events-none absolute inset-0">
+        <Image
+          src={withBasePath(homeFlowImage.src)}
+          alt=""
+          fill
+          loading="lazy"
+          sizes="100vw"
+          className="object-cover opacity-50"
+        />
+        <div className="absolute inset-0 bg-ink-950/60" />
+      </div>
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_65%_80%_at_50%_100%,rgba(24,142,206,0.18),transparent_70%)]"

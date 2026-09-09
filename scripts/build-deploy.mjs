@@ -211,9 +211,19 @@ ${target.noindex ? '<meta name="robots" content="noindex, nofollow">\n' : ''}<sc
 /*  api/leads.php — substitute the target's addresses                         */
 /* -------------------------------------------------------------------------- */
 
+/*
+ * The script is copied in from server/, not kept in public/.
+ *
+ * Anything in public/ is a static asset of EVERY build, including the Node one
+ * — and a host with no PHP runtime does not execute a .php file, it serves it,
+ * publishing the mail configuration to anyone who asks for the URL. Keeping it
+ * outside public/ means only the target that can actually run it ever receives
+ * a copy.
+ */
+const phpSource = path.join(ROOT, 'server', 'leads.php');
 const phpPath = path.join(OUT, 'api', 'leads.php');
-if (fs.existsSync(phpPath)) {
-let php = fs.readFileSync(phpPath, 'utf8');
+
+let php = fs.readFileSync(phpSource, 'utf8');
 
 const swap = (constant, value) => {
   const pattern = new RegExp(`(const ${constant}\\s*=\\s*)'[^']*'`);
@@ -230,8 +240,8 @@ php = php.replace(
   ` * Addresses below were written by scripts/build-deploy.mjs for the "${name}"\n * target. To change them, edit deploy.targets.json and rebuild — editing this\n * copy works, but the next deploy overwrites it.`,
 );
 
+fs.mkdirSync(path.dirname(phpPath), { recursive: true });
 fs.writeFileSync(phpPath, php, 'utf8');
-}
 
 /* -------------------------------------------------------------------------- */
 /*  Verify the base path was applied everywhere                               */
