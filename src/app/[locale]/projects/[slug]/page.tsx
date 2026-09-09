@@ -75,7 +75,7 @@ export default async function ProjectPage({
         primaryCta={{ label: t(D.discussSimilarChallenge, locale), href: localePath(locale, 'request-solution') }}
         size="large"
         aside={
-          <dl className="divide-y divide-white/10 border border-white/12 bg-ink-900/60">
+          <dl className="divide-y divide-white/10 border border-white/12 bg-ink-900/85">
             <div className="flex items-baseline justify-between gap-4 p-4">
               <dt className="u-label text-ink-500">{t(D.industry, locale)}</dt>
               <dd className="text-end text-[0.875rem] text-ink-100">{industry ? t(industry.title, locale) : '—'}</dd>
@@ -96,8 +96,8 @@ export default async function ProjectPage({
       {project.isIllustrative ? (
         <Band tone="mist" className="py-8">
           <div className="container-page">
-            <div className="flex items-start gap-4 border border-warn-500/35 bg-warn-500/[0.06] p-5">
-              <Icon name="clipboard" size={20} className="mt-0.5 shrink-0 text-warn-500" />
+            <div className="flex items-start gap-4 border border-warn-700/35 bg-warn-700/[0.06] p-5">
+              <Icon name="clipboard" size={20} className="mt-0.5 shrink-0 text-warn-700" />
               <div>
                 <p className="font-display text-[0.9375rem] font-semibold tracking-tight text-ink-950">
                   {t(D.illustrativeProject, locale)}

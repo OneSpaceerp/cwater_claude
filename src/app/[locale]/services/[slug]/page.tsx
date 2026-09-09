@@ -164,7 +164,7 @@ export default async function ServicePage({
         </div>
       </Band>
 
-      <RelatedTechnologies slugs={service.technologies} locale={locale} tone="dark" heading={t(D.relatedTechnologies, locale)} />
+      <RelatedTechnologies slugs={service.technologies} locale={locale} tone="light" heading={t(D.relatedTechnologies, locale)} />
       <RelatedSolutions slugs={service.solutions} locale={locale} tone="light" />
 
       <PageCta

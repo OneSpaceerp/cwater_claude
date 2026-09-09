@@ -147,7 +147,7 @@ export default async function IndustryPage({
       <RelatedProducts slugs={industry.products} locale={locale} tone="light" />
       <RelatedServices slugs={industry.services} locale={locale} tone="dark" />
       <RelatedProjects slugs={industry.projects} locale={locale} tone="light" />
-      <RelatedKnowledge slugs={industry.articles} locale={locale} tone="dark" />
+      <RelatedKnowledge slugs={industry.articles} locale={locale} tone="light" />
 
       <PageCta
         locale={locale}

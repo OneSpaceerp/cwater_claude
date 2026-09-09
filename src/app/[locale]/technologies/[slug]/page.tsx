@@ -83,7 +83,7 @@ export default async function TechnologyPage({
           partner ? (
             <Link
               href={localePath(locale, `partners/${partner.slug}`)}
-              className="group relative block border border-signal-500/25 bg-signal-500/[0.07] p-6 transition-colors hover:border-signal-400/50"
+              className="group relative block border border-signal-500/25 bg-ink-950/85 p-6 backdrop-blur-sm transition-colors hover:border-signal-400/50"
             >
               <span aria-hidden className="absolute -top-px start-0 h-0.5 w-12 bg-signal-400" />
               <p className="u-label text-signal-300">{t(D.explorer.technologyPartner, locale)}</p>
@@ -171,7 +171,7 @@ export default async function TechnologyPage({
 
       {/* ---- Partner role ---- */}
       {partner ? (
-        <Band tone="ink" className="section-tight">
+        <Band tone="mist" className="section-tight">
           <div className="container-page">
             <div className="grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-20">
               <Reveal>
@@ -179,14 +179,14 @@ export default async function TechnologyPage({
                   index={4}
                   eyebrow={t(D.explorer.technologyPartner, locale)}
                   title={<span className="latin">{partner.legalName}</span>}
-                  tone="light"
+                  tone="dark"
                 />
               </Reveal>
               <Reveal delay={0.06}>
-                <p className="text-lead leading-relaxed text-ink-200">{t(partner.cwaterRole, locale)}</p>
+                <p className="text-lead leading-relaxed text-ink-600">{t(partner.cwaterRole, locale)}</p>
                 <Link
                   href={localePath(locale, `partners/${partner.slug}`)}
-                  className="group mt-6 inline-flex items-center gap-2 text-[0.9375rem] font-medium text-signal-300 transition-colors hover:text-white"
+                  className="group mt-6 inline-flex items-center gap-2 text-[0.9375rem] font-medium text-signal-700 transition-colors hover:text-signal-500"
                 >
                   {t({ en: 'Explore the partnership', ar: 'استكشف الشراكة' }, locale)}
                   <Arrow size={14} className="transition-transform duration-300 group-hover:translate-x-1 rtl:group-hover:-translate-x-1" />
@@ -200,7 +200,7 @@ export default async function TechnologyPage({
       <RelatedSolutions slugs={tech.solutions} locale={locale} tone="light" />
       <RelatedProducts slugs={tech.products} locale={locale} tone="dark" />
       <RelatedServices slugs={tech.services} locale={locale} tone="light" />
-      <RelatedKnowledge slugs={tech.articles} locale={locale} tone="dark" />
+      <RelatedKnowledge slugs={tech.articles} locale={locale} tone="light" />
 
       <PageCta
         locale={locale}

@@ -71,8 +71,8 @@ export default async function ProjectsPage({ params }: { params: Promise<{ local
       {allIllustrative ? (
         <Band tone="mist" className="py-8">
           <div className="container-page">
-            <div className="flex items-start gap-4 border border-warn-500/35 bg-warn-500/[0.06] p-5">
-              <Icon name="clipboard" size={20} className="mt-0.5 shrink-0 text-warn-500" />
+            <div className="flex items-start gap-4 border border-warn-700/35 bg-warn-700/[0.06] p-5">
+              <Icon name="clipboard" size={20} className="mt-0.5 shrink-0 text-warn-700" />
               <div>
                 <p className="font-display text-[0.9375rem] font-semibold tracking-tight text-ink-950">
                   {t(D.illustrativeProject, locale)}

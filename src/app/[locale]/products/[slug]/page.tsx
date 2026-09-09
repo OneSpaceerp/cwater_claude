@@ -86,7 +86,7 @@ export default async function ProductPage({
         primaryCta={{ label: t(D.requestQuote, locale), href: quoteHref }}
         secondaryCta={{ label: t(D.talkToEngineer, locale), href: engineerHref }}
         aside={
-          <dl className="border border-white/12 bg-ink-900/60 divide-y divide-white/10">
+          <dl className="border border-white/12 bg-ink-900/85 divide-y divide-white/10">
             <div className="flex items-baseline justify-between gap-4 p-4">
               <dt className="u-label text-ink-500">{t(D.partner, locale)}</dt>
               <dd className="latin text-[0.9375rem] font-medium text-white">{partner.legalName}</dd>
@@ -214,22 +214,22 @@ export default async function ProductPage({
       ) : null}
 
       {/* ---- Partner ---- */}
-      <Band tone="ink" className="section-tight">
+      <Band tone="mist" className="section-tight">
         <div className="container-page">
           <div className="grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-20">
             <Reveal>
               <SectionHeading
                 eyebrow={t(D.explorer.technologyPartner, locale)}
                 title={<span className="latin">{partner.legalName}</span>}
-                tone="light"
+                tone="dark"
                 as="h2"
               />
             </Reveal>
             <Reveal delay={0.06}>
-              <p className="text-lead leading-relaxed text-ink-200">{t(partner.cwaterRole, locale)}</p>
+              <p className="text-lead leading-relaxed text-ink-600">{t(partner.cwaterRole, locale)}</p>
               <Link
                 href={localePath(locale, `partners/${partner.slug}`)}
-                className="group mt-6 inline-flex items-center gap-2 text-[0.9375rem] font-medium text-signal-300 transition-colors hover:text-white"
+                className="group mt-6 inline-flex items-center gap-2 text-[0.9375rem] font-medium text-signal-700 transition-colors hover:text-signal-500"
               >
                 {t({ en: 'Explore the partnership', ar: 'استكشف الشراكة' }, locale)}
                 <Arrow size={14} className="transition-transform duration-300 group-hover:translate-x-1 rtl:group-hover:-translate-x-1" />

@@ -75,7 +75,7 @@ export default async function PartnerPage({
         }}
         size="large"
         aside={
-          <dl className="divide-y divide-white/10 border border-white/12 bg-ink-900/60">
+          <dl className="divide-y divide-white/10 border border-white/12 bg-ink-900/85">
             <div className="flex items-baseline justify-between gap-4 p-4">
               <dt className="u-label text-ink-500">{t({ en: 'Capability', ar: 'القدرة' }, locale)}</dt>
               <dd className="text-end text-[0.875rem] text-ink-100">{t(partner.capability, locale)}</dd>
@@ -213,7 +213,7 @@ export default async function PartnerPage({
         tone="light"
         heading={t(D.relatedTechnologies, locale)}
       />
-      <RelatedProducts slugs={partnerProducts} locale={locale} tone="dark" />
+      <RelatedProducts slugs={partnerProducts} locale={locale} tone="light" />
 
       <PageCta
         locale={locale}

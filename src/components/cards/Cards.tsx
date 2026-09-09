@@ -315,7 +315,7 @@ export function ProjectCard({
             'mb-4 inline-flex w-fit items-center gap-1.5 rounded-sm border px-2 py-1 font-mono text-[0.625rem] tracking-[0.12em] uppercase',
             tone === 'dark'
               ? 'border-warn-500/35 bg-warn-500/10 text-warn-500'
-              : 'border-warn-500/40 bg-warn-500/8 text-warn-500',
+              : 'border-warn-700/40 bg-warn-700/8 text-warn-700',
           )}
         >
           {t(D.illustrativeProject, locale)}

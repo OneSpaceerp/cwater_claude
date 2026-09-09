@@ -281,22 +281,27 @@ export function PageCta({
   secondary?: { label: string; href: string };
 }) {
   return (
-    <Band tone="ink-deep" blueprint className="section relative overflow-hidden">
+    /* Light, not ink. This band closes nearly every page on the site, so as a
+       dark block it set the overall temperature more than any single section —
+       every page opened dark and ended dark. On mist it still reads as a
+       deliberate closing moment because of the centred measure and the solid
+       primary button, without the whole site feeling like a night scene. */
+    <Band tone="mist" className="section relative overflow-hidden">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_75%_at_50%_100%,rgba(24,142,206,0.16),transparent_70%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_75%_at_50%_100%,rgba(24,142,206,0.09),transparent_70%)]"
       />
       <div className="container-page relative">
         <Reveal>
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-h2 text-white text-balance">{title}</h2>
-            {body ? <p className="mt-6 text-lead text-ink-200">{body}</p> : null}
+            <h2 className="text-h2 text-ink-950 text-balance">{title}</h2>
+            {body ? <p className="mt-6 text-lead text-ink-600">{body}</p> : null}
             <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
               <ButtonLink href={primary.href} size="lg" withArrow>
                 {primary.label}
               </ButtonLink>
               {secondary ? (
-                <ButtonLink href={secondary.href} variant="outline-light" size="lg">
+                <ButtonLink href={secondary.href} variant="ghost" size="lg">
                   {secondary.label}
                 </ButtonLink>
               ) : null}

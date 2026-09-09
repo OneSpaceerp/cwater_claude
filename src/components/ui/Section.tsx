@@ -32,7 +32,10 @@ export function Eyebrow({
     >
       {index !== undefined ? (
         <>
-          <span className={tone === 'dark' ? 'text-ink-400' : 'text-ink-300/70'}>{pad(index)}</span>
+          {/* ink-400 reads 3.6:1 on paper — below AA for a numeral this small.
+              ink-500 is the muted step meant for light canvases, and the
+              .theme-dark remap lifts it again on ink. */}
+          <span className={tone === 'dark' ? 'text-ink-500' : 'text-ink-300/70'}>{pad(index)}</span>
           <span aria-hidden className={cn('h-px w-6', tone === 'dark' ? 'bg-ink-300' : 'bg-signal-300/40')} />
         </>
       ) : null}

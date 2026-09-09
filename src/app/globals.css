@@ -56,6 +56,11 @@
   --color-ok-500: #2e9e6b;
   --color-ok-900: #0d3323;
   --color-warn-500: #c98a16;
+  /* Amber for light canvases. warn-500 is 2.95:1 on paper — it reads on ink
+     and nowhere else, and the badge it carries is the notice marking a project
+     as illustrative rather than real, which has to be legible. 5.7:1 on white,
+     5.2:1 on mist. */
+  --color-warn-700: #8a5e0a;
   --color-warn-900: #3d2a06;
   /* alert-500 is the fill (white on it = 4.84); alert-400 is the text step for
      dark canvases, where alert-500 only reaches 4.08. */
@@ -595,19 +600,26 @@
   }
 
   /* --- Contrast safety net -------------------------------------------------
-     A single mid-grey cannot clear 4.5:1 against both white and near-black, so
-     the muted steps are canvas-dependent: ink-500/600 read on paper, ink-400/300
-     read on ink. Every dark band already carries .theme-dark (or .on-dark for a
-     dark card sitting on a light band), so remapping inside that context keeps
-     muted text accessible without each call site having to know its background.
+     A single mid-grey cannot clear 4.5:1 against both white and a dark canvas,
+     so the muted steps are canvas-dependent: ink-500/600 read on paper, and on
+     ink they move up. Every dark band carries .theme-dark (or .on-dark for a
+     dark card on a light band), so remapping inside that context keeps muted
+     text accessible without each call site having to know its background.
+
+     The dark surfaces were lightened from near-black (#050b12) to #11202f, so
+     these remaps moved up a step with them: ink-400 no longer clears AA there
+     and does not appear on dark at all now. Measured worst case on the new
+     surfaces is 6.3:1.
      ---------------------------------------------------------------------- */
+  .theme-dark .text-ink-400,
+  .on-dark .text-ink-400,
   .theme-dark .text-ink-500,
   .on-dark .text-ink-500 {
-    color: var(--color-ink-400);
+    color: var(--color-ink-300);
   }
   .theme-dark .text-ink-600,
   .on-dark .text-ink-600 {
-    color: var(--color-ink-300);
+    color: var(--color-ink-200);
   }
   .theme-dark .text-alert-500,
   .on-dark .text-alert-500 {

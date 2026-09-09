@@ -243,7 +243,7 @@ export default async function SolutionPage({
       <RelatedServices slugs={solution.services} locale={locale} tone="light" />
       <RelatedIndustries slugs={solution.industries} locale={locale} tone="dark" />
       <RelatedProjects slugs={solution.projects} locale={locale} tone="light" />
-      <RelatedKnowledge slugs={solution.articles} locale={locale} tone="dark" />
+      <RelatedKnowledge slugs={solution.articles} locale={locale} tone="light" />
 
       <PageCta
         locale={locale}

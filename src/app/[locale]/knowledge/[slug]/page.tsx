@@ -208,7 +208,7 @@ export default async function ArticlePage({
         </div>
       </Band>
 
-      <RelatedSolutions slugs={article.solutions} locale={locale} tone="dark" />
+      <RelatedSolutions slugs={article.solutions} locale={locale} tone="light" />
       <RelatedProducts slugs={article.products} locale={locale} tone="light" />
 
       <PageCta
