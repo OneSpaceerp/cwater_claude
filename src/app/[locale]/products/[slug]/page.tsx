@@ -133,7 +133,7 @@ export default async function ProductPage({
       </Band>
 
       {/* ---- Benefits ---- */}
-      <Band tone="ink" className="section">
+      <Band tone="brand" waveFrom="paper" waveTo="paper" className="section">
         <div className="container-page">
           <Reveal>
             <SectionHeading
@@ -146,7 +146,7 @@ export default async function ProductPage({
           <RevealGroup className="mt-10 grid gap-px bg-white/10 sm:grid-cols-2">
             {product.benefits.map((benefit, i) => (
               <RevealItem key={benefit.id}>
-                <div className="flex h-full flex-col bg-ink-950 p-6 sm:p-7">
+                <div className="flex h-full flex-col bg-white/[0.08] p-6 sm:p-7">
                   <div className="mb-5 flex items-center justify-between gap-4">
                     <span className="u-label text-signal-300">{pad(i + 1)}</span>
                     {benefit.icon ? <Icon name={benefit.icon} size={22} className="text-signal-400" /> : null}

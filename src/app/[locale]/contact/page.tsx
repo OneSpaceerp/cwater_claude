@@ -62,6 +62,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
           },
           locale,
         )}
+        sweepTo="none"
       />
 
       <Band tone="ink" blueprint className="section">

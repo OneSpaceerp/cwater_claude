@@ -181,7 +181,7 @@ export default async function SolutionPage({
       </Band>
 
       {/* ---- 05 System flow ---- */}
-      <Band tone="ink-deep" blueprint className="section">
+      <Band tone="brand" waveFrom="paper" waveTo="tint" className="section">
         <div className="container-page">
           <Reveal>
             <SectionHeading
@@ -203,7 +203,7 @@ export default async function SolutionPage({
             {solution.systemFlow.map((stage, i) => {
               const partner = stage.partner ? partnerBySlug[stage.partner] : null;
               const cardClass =
-                'group flex h-full flex-col bg-ink-950 p-6 transition-colors duration-500 hover:bg-ink-900';
+                'group flex h-full flex-col bg-white/[0.08] p-6 transition-colors duration-500 hover:bg-white/[0.14]';
               const body = (
                 <>
                   <div className="mb-5 flex items-center justify-between gap-3">

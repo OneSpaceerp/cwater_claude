@@ -72,6 +72,7 @@ export default async function TechnologiesPage({ params }: { params: Promise<{ l
         )}
         primaryCta={{ label: t(D.talkToEngineer, locale), href: localePath(locale, 'contact?intent=engineer') }}
         size="large"
+        sweepTo="none"
       />
 
       {/* ---- The connected system ---- */}

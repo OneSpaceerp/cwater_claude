@@ -65,6 +65,7 @@ export default async function ProjectsPage({ params }: { params: Promise<{ local
         )}
         primaryCta={{ label: t(D.discussSimilarChallenge, locale), href: localePath(locale, 'request-solution') }}
         size="large"
+        sweepTo="tint"
       />
 
       {/* Stated once, at the top of the index, rather than buried per card. */}

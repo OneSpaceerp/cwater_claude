@@ -70,6 +70,7 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
         primaryCta={{ label: t(D.requestTechnicalSupport, locale), href: localePath(locale, 'contact?intent=support') }}
         secondaryCta={{ label: t(D.talkToEngineer, locale), href: localePath(locale, 'contact?intent=engineer') }}
         size="large"
+        sweepTo="none"
       />
 
       {/* ---- Lifecycle ---- */}

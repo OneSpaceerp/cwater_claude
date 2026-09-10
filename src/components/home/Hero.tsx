@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { motion, useReducedMotion } from 'framer-motion';
 import { TreatmentLine, TreatmentLineStack } from '@/components/interactive/TreatmentLine';
+import { HeroSweep } from '@/components/ui/Wave';
 import { ButtonLink } from '@/components/ui/Button';
 import { dictionary as D } from '@/content/dictionary';
 import { systemStages } from '@/components/interactive/SystemExplorer';
@@ -71,7 +72,7 @@ export function Hero({ locale }: { locale: Locale }) {
       />
 
       <div className="container-page relative">
-        <div className="flex flex-col pt-16 pb-14 sm:pt-20 lg:pt-24 lg:pb-16">
+        <div className="flex flex-col pt-16 pb-28 sm:pt-20 lg:pt-24 lg:pb-40">
           {/* ---- Proposition ---- */}
           <div className="max-w-4xl">
             <motion.p {...rise(0)} className="u-label flex items-center gap-3 text-signal-300">
@@ -141,6 +142,7 @@ export function Hero({ locale }: { locale: Locale }) {
           </motion.div>
         </div>
       </div>
+      <HeroSweep to="paper" />
     </section>
   );
 }

@@ -7,7 +7,9 @@ type Variant = 'primary' | 'secondary' | 'ghost' | 'outline-light' | 'quiet';
 type Size = 'sm' | 'md' | 'lg';
 
 const base =
-  'group/btn relative inline-flex items-center justify-center gap-2.5 rounded-sm font-medium ' +
+  /* Pill, not a 2px radius. This is the single most visible carrier of the
+     new language — every control on the page reads as water-rounded. */
+  'group/btn relative inline-flex items-center justify-center gap-2.5 rounded-full font-medium ' +
   'transition-[background-color,border-color,color,transform] duration-300 ease-[var(--ease-out-expo)] ' +
   'disabled:pointer-events-none disabled:opacity-45 whitespace-nowrap';
 
@@ -29,9 +31,9 @@ const variants: Record<Variant, string> = {
 };
 
 const sizes: Record<Size, string> = {
-  sm: 'h-9 px-4 text-[0.8125rem]',
-  md: 'h-11 px-6 text-[0.9375rem]',
-  lg: 'h-[3.25rem] px-8 text-base',
+  sm: 'h-9 px-5 text-[0.8125rem]',
+  md: 'h-11 px-7 text-[0.9375rem]',
+  lg: 'h-[3.25rem] px-9 text-base',
 };
 
 interface CommonProps {

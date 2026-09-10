@@ -91,6 +91,7 @@ export default async function RequestQuotePage({ params }: { params: Promise<{ l
           },
           locale,
         )}
+        sweepTo="none"
       />
 
       <Band tone="ink" blueprint className="section">

@@ -149,8 +149,10 @@ export function TechnologyCard({
     <CardShell href={localePath(locale, `technologies/${technology.slug}`)} tone={tone}>
       <div className="mb-5 flex items-start justify-between gap-4">
         <CardIndex index={index} tone={tone} />
+        {/* Full strength, not 80%. Faded, signal-700 reads 3.2:1 on paper and
+            signal-300 3.3:1 on ink — both below AA for a label this small. */}
         {partner ? (
-          <span className={cn('u-label latin', tone === 'dark' ? 'text-signal-300/70' : 'text-signal-700/80')}>
+          <span className={cn('u-label latin', tone === 'dark' ? 'text-signal-300' : 'text-signal-700')}>
             {partner.legalName}
           </span>
         ) : null}

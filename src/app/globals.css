@@ -74,35 +74,40 @@
      Technical: IBM Plex Mono  — instrument labels, data, spec tables
      Arabic   : Cairo          — contemporary Arabic sans, display through text
      ------------------------------------------------------------------------ */
-  --font-display: var(--font-archivo), 'Archivo', system-ui, sans-serif;
+  --font-display: var(--font-newsreader), 'Newsreader', Georgia, 'Times New Roman', serif;
   --font-sans: var(--font-inter), 'Inter', system-ui, sans-serif;
   --font-mono: var(--font-plex-mono), 'IBM Plex Mono', ui-monospace, monospace;
   --font-arabic: var(--font-cairo), 'Cairo', 'Noto Sans Arabic', system-ui, sans-serif;
 
   /* --- Editorial type scale (desktop caps; clamped for fluidity) ---------- */
-  --text-display: clamp(2.75rem, 1.2rem + 6.4vw, 6rem);
-  --text-display--line-height: 0.94;
-  --text-display--letter-spacing: -0.035em;
-  --text-display--font-weight: 700;
+  /* The old values were cut for a tight industrial grotesque. A serif needs
+     the opposite of all three: room between lines for the ascenders and
+     descenders, tracking near zero because the serifs already do the spacing
+     work, and a lighter weight because the letterforms carry their own
+     presence at size. */
+  --text-display: clamp(2.75rem, 1.2rem + 6.4vw, 5.5rem);
+  --text-display--line-height: 1.04;
+  --text-display--letter-spacing: -0.018em;
+  --text-display--font-weight: 400;
 
-  --text-h1: clamp(2.25rem, 1.1rem + 4.6vw, 4.5rem);
-  --text-h1--line-height: 0.98;
-  --text-h1--letter-spacing: -0.03em;
-  --text-h1--font-weight: 700;
+  --text-h1: clamp(2.25rem, 1.1rem + 4.6vw, 4.25rem);
+  --text-h1--line-height: 1.08;
+  --text-h1--letter-spacing: -0.015em;
+  --text-h1--font-weight: 400;
 
-  --text-h2: clamp(1.75rem, 1rem + 2.9vw, 3.25rem);
-  --text-h2--line-height: 1.04;
-  --text-h2--letter-spacing: -0.025em;
-  --text-h2--font-weight: 700;
+  --text-h2: clamp(1.75rem, 1rem + 2.9vw, 3rem);
+  --text-h2--line-height: 1.14;
+  --text-h2--letter-spacing: -0.012em;
+  --text-h2--font-weight: 500;
 
-  --text-h3: clamp(1.375rem, 1rem + 1.4vw, 2.25rem);
-  --text-h3--line-height: 1.12;
-  --text-h3--letter-spacing: -0.02em;
-  --text-h3--font-weight: 600;
+  --text-h3: clamp(1.375rem, 1rem + 1.4vw, 2rem);
+  --text-h3--line-height: 1.22;
+  --text-h3--letter-spacing: -0.008em;
+  --text-h3--font-weight: 500;
 
-  --text-h4: clamp(1.125rem, 0.95rem + 0.7vw, 1.5rem);
-  --text-h4--line-height: 1.25;
-  --text-h4--letter-spacing: -0.012em;
+  --text-h4: clamp(1.125rem, 0.95rem + 0.7vw, 1.4rem);
+  --text-h4--line-height: 1.32;
+  --text-h4--letter-spacing: -0.004em;
   --text-h4--font-weight: 600;
 
   --text-lead: clamp(1.0625rem, 0.98rem + 0.42vw, 1.3125rem);
@@ -117,11 +122,21 @@
   --text-label--letter-spacing: 0.16em;
 
   /* --- Shape: precision over softness ------------------------------------ */
-  --radius-xs: 1px;
-  --radius-sm: 2px;
-  --radius-md: 3px;
-  --radius-lg: 4px;
-  --radius-xl: 6px;
+  /* The previous scale topped out at 6px, which read as drafting-table
+     precision. The new language is water: rounded cards, pill controls. */
+  --radius-xs: 3px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+  --radius-pill: 999px;
+
+  /* Soft elevation. Cards lift off the page now instead of being drawn on it,
+     so the shadows are wide and low-opacity rather than tight and dark. */
+  --shadow-card: 0 1px 2px rgba(9, 30, 48, 0.04), 0 12px 32px -12px rgba(9, 30, 48, 0.14);
+  --shadow-card-hover: 0 2px 4px rgba(9, 30, 48, 0.05), 0 24px 48px -16px rgba(9, 30, 48, 0.2);
+  --shadow-float: 0 18px 48px -12px rgba(9, 30, 48, 0.28);
 
   /* --- Motion ------------------------------------------------------------- */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -338,27 +353,27 @@
      Hairline border, no drop shadow, a top tick mark that extends on hover.
      Reads as an instrument panel, not a SaaS card.
      ------------------------------------------------------------------------ */
+  /* A card now lifts off the page instead of being drawn on it. The hairline
+     border stays, at a much lighter weight, so the edge is still defined on a
+     tinted band where a shadow alone would disappear. */
   .module {
     position: relative;
-    border: 1px solid var(--color-ink-200);
+    border: 1px solid rgb(9 30 48 / 0.06);
     background-color: #fff;
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
     transition:
       border-color 0.35s var(--ease-out-expo),
+      box-shadow 0.35s var(--ease-out-expo),
       background-color 0.35s var(--ease-out-expo),
       transform 0.35s var(--ease-out-expo);
   }
+  .module:hover {
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-2px);
+  }
   .module::after {
-    content: '';
-    position: absolute;
-    inset-block-start: -1px;
-    inset-inline-start: -1px;
-    width: 2rem;
-    height: 2px;
-    background-color: var(--color-signal-500);
-    transform: scaleX(0);
-    transform-origin: left center;
-    transition: transform 0.45s var(--ease-out-expo);
+    content: none;
   }
   [dir='rtl'] .module::after {
     transform-origin: right center;
@@ -371,10 +386,13 @@
     border-color: var(--color-ink-300);
   }
 
+  /* On ink a drop shadow is invisible, so the dark card keeps its border
+     and drops the lift entirely. */
   .theme-dark .module,
   .on-dark .module {
     background-color: color-mix(in srgb, var(--color-signal-500) 4%, var(--color-ink-900));
     border-color: color-mix(in srgb, var(--color-signal-300) 14%, transparent);
+    box-shadow: none;
   }
   .theme-dark .module:hover,
   .on-dark .module:hover {
@@ -564,6 +582,10 @@
   [lang='ar'] .text-h4 {
     line-height: 1.5;
     letter-spacing: 0;
+    /* The Latin headings run at 400 because a serif carries its own weight at
+       size. Cairo is a sans and reads noticeably lighter at the same number,
+       so Arabic takes 600 to match the optical weight rather than the value. */
+    font-weight: 600;
   }
 
   /* Article prose sets its own heading metrics, tuned for the Latin face; the
@@ -665,6 +687,63 @@
     color-scheme: dark;
     background-color: var(--color-ink-950);
     color: var(--color-ink-100);
+  }
+
+  /* The brand band is a dark canvas that happens to be blue rather than ink.
+     Two classes, because .theme-dark paints its own background and a single
+     utility class loses to it. */
+  .theme-dark.on-brand {
+    background-color: var(--color-signal-800);
+  }
+
+  /*
+   * Muted text on the brand band.
+   *
+   * The whole muted palette was tuned against ink. On signal-800 — and more so
+   * on the frosted tiles, which lift the ground to about #2f6586 — ink-300
+   * lands at 2.2:1 and signal-300 at 2.5:1.
+   *
+   * These redefine the tokens rather than the utility classes, so every
+   * consumer follows automatically: text-ink-300, the .theme-dark remaps that
+   * point at it, and the opacity variants like text-ink-300/70 which would
+   * each have needed their own escaped selector.
+   *
+   * Measured on the lightest ground in the band: white/88 at 5.3:1,
+   * signal-100 at 5.2:1.
+   */
+  .on-brand {
+    --color-ink-200: rgb(255 255 255 / 0.94);
+    --color-ink-300: rgb(255 255 255 / 0.88);
+    --color-ink-400: rgb(255 255 255 / 0.88);
+    --color-ink-500: rgb(255 255 255 / 0.88);
+    --color-ink-600: rgb(255 255 255 / 0.94);
+    --color-signal-300: var(--color-signal-100);
+    --color-signal-500: var(--color-signal-100);
+    --color-signal-700: var(--color-signal-100);
+  }
+
+  /* Two call sites fade their accent with an opacity modifier. Remapping the
+     token still leaves the alpha, which drags signal-100 back to 3.2-3.3:1 on
+     the frosted tiles, so on this band they run at full strength. */
+  .on-brand .text-signal-300\/70,
+  .on-brand .text-signal-700\/80 {
+    color: var(--color-signal-100);
+  }
+
+  /* Cards on the brand band are frosted panels, not ink boxes: a near-black
+     card on saturated blue reads as a hole punched in the section. */
+  .on-brand .module {
+    background-color: rgb(255 255 255 / 0.09);
+    border-color: rgb(255 255 255 / 0.16);
+    box-shadow: none;
+  }
+  .on-brand .module:hover {
+    background-color: rgb(255 255 255 / 0.14);
+    border-color: rgb(255 255 255 / 0.3);
+  }
+  /* Hairlines inside the band follow suit. */
+  .on-brand .rule {
+    background-color: rgb(255 255 255 / 0.18);
   }
 }
 

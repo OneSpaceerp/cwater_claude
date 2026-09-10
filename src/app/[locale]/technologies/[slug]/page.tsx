@@ -119,7 +119,7 @@ export default async function TechnologyPage({
       </Band>
 
       {/* ---- How it works ---- */}
-      <Band tone="ink" blueprint className="section">
+      <Band tone="brand" waveFrom="paper" waveTo="tint" className="section">
         <div className="container-page">
           <Reveal>
             <SectionHeading
@@ -132,7 +132,7 @@ export default async function TechnologyPage({
           <RevealGroup as="ol" className="mt-12 grid gap-px bg-white/10 sm:grid-cols-2">
             {tech.howItWorks.map((point, i) => (
               <RevealItem as="li" key={point.id}>
-                <div className="flex h-full flex-col bg-ink-950 p-7 sm:p-8">
+                <div className="flex h-full flex-col bg-white/[0.08] p-7 sm:p-8">
                   <div className="mb-5 flex items-center justify-between gap-4">
                     <span className="u-label text-signal-300">{pad(i + 1)}</span>
                     {point.icon ? <Icon name={point.icon} size={24} className="text-signal-400" /> : null}

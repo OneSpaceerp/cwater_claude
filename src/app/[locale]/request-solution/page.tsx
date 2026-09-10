@@ -94,6 +94,7 @@ export default async function RequestSolutionPage({ params }: { params: Promise<
           },
           locale,
         )}
+        sweepTo="none"
       />
 
       <Band tone="ink" blueprint className="section">

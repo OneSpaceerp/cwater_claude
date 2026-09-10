@@ -14,7 +14,7 @@ import { pad } from '@/lib/utils';
  */
 export function ApproachSection({ locale }: { locale: Locale }) {
   return (
-    <Band tone="ink" blueprint className="section">
+    <Band tone="brand" waveFrom="paper" waveTo="paper" className="section">
       <div className="container-page">
         <Reveal>
           <SectionHeading
@@ -35,7 +35,7 @@ export function ApproachSection({ locale }: { locale: Locale }) {
         <RevealGroup as="ol" className="relative mt-14 grid gap-px bg-white/10 sm:grid-cols-2 lg:grid-cols-3">
           {operatingModel.map((step, i) => (
             <RevealItem as="li" key={step.id}>
-              <div className="group relative flex h-full flex-col bg-ink-950 p-7 transition-colors duration-500 hover:bg-ink-900 sm:p-8">
+              <div className="group relative flex h-full flex-col bg-white/[0.08] p-7 transition-colors duration-500 hover:bg-white/[0.14] sm:p-8">
                 <div className="mb-6 flex items-center justify-between gap-4">
                   <span className="u-label text-signal-300">{pad(i + 1)}</span>
                   <Icon

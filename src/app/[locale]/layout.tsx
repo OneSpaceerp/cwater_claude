@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { notFound } from 'next/navigation';
-import { Archivo, Inter, IBM_Plex_Mono, Cairo } from 'next/font/google';
+import { Newsreader, Inter, IBM_Plex_Mono, Cairo } from 'next/font/google';
 import type { ReactNode } from 'react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
@@ -15,8 +15,9 @@ import { cn } from '@/lib/utils';
 /**
  * Typography.
  *
- * Archivo carries the editorial headlines — an industrial grotesque with tight
- * apertures that holds up at display sizes. Inter takes the technical body
+ * Newsreader carries the editorial headlines — a screen-first serif with
+ * moderate contrast, which is what gives the pages their considered,
+ * publication feel rather than a software one. Inter takes the technical body
  * copy. IBM Plex Mono handles every label, spec key and instrument readout,
  * which is what gives the interface its measured, engineered register.
  *
@@ -27,10 +28,14 @@ import { cn } from '@/lib/utils';
  *
  * All four are self-hosted by next/font: no external requests, no layout shift.
  */
-const archivo = Archivo({
+const newsreader = Newsreader({
   subsets: ['latin'],
-  weight: ['500', '600', '700', '800'],
-  variable: '--font-archivo',
+  /* 400 carries the display sizes: a serif this large wants the lighter
+     cut, and the weight the old grotesque needed for presence now comes
+     from the letterforms themselves. */
+  weight: ['400', '500', '600', '700'],
+  style: ['normal', 'italic'],
+  variable: '--font-newsreader',
   display: 'swap',
 });
 
@@ -119,7 +124,7 @@ export default async function LocaleLayout({
     <html
       lang={htmlLang}
       dir={dir}
-      className={cn(archivo.variable, inter.variable, plexMono.variable, cairo.variable)}
+      className={cn(newsreader.variable, inter.variable, plexMono.variable, cairo.variable)}
       suppressHydrationWarning
     >
       <body className="min-h-screen antialiased">

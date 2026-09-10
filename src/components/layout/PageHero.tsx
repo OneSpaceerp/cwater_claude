@@ -2,6 +2,7 @@ import Image from 'next/image';
 import type { ReactNode } from 'react';
 import type { SiteImage } from '@/content/imagery';
 import { withBasePath } from '@/lib/base-path';
+import { HeroSweep } from '@/components/ui/Wave';
 import { Breadcrumb } from '@/components/ui/Pieces';
 import { ButtonLink } from '@/components/ui/Button';
 import { Icon } from '@/components/ui/Icon';
@@ -28,6 +29,7 @@ export function PageHero({
   aside,
   size = 'default',
   image,
+  sweepTo = 'paper',
 }: {
   locale: Locale;
   breadcrumbs: { label: string; href?: string }[];
@@ -46,6 +48,13 @@ export function PageHero({
    * it, which is why partial coverage across the site is not a defect.
    */
   image?: SiteImage;
+  /**
+   * The band the hero flows into. The sweep is painted in that colour, so it
+   * has to match or the curve reads as a white shelf. 'none' for a hero that
+   * runs straight into another dark band, where a curve would be invisible
+   * anyway.
+   */
+  sweepTo?: 'paper' | 'tint' | 'none';
 }) {
   return (
     <section className="theme-dark blueprint relative overflow-hidden bg-ink-950 pt-[var(--header-h)]">
@@ -82,8 +91,10 @@ export function PageHero({
       <div className="container-page relative">
         <div
           className={cn(
-            'flex flex-col gap-12 pb-14 lg:flex-row lg:items-end lg:justify-between lg:gap-16',
-            size === 'large' ? 'pt-14 lg:pt-20' : 'pt-12 lg:pt-16',
+            'flex flex-col gap-12 lg:flex-row lg:items-end lg:justify-between lg:gap-16',
+            /* The sweep occupies up to 132px at the foot of the band, so the
+               padding below the copy grows to clear it. */
+            size === 'large' ? 'pt-14 pb-28 lg:pt-20 lg:pb-40' : 'pt-12 pb-24 lg:pt-16 lg:pb-36',
           )}
         >
           <div className="max-w-3xl">
@@ -126,7 +137,7 @@ export function PageHero({
           {aside ? <div className="w-full lg:max-w-sm">{aside}</div> : null}
         </div>
       </div>
-      <div aria-hidden className="flow-rule" />
+      {sweepTo === 'none' ? null : <HeroSweep to={sweepTo} />}
     </section>
   );
 }

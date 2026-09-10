@@ -110,7 +110,7 @@ export default async function ServicePage({
       </Band>
 
       {/* ---- Approach ---- */}
-      <Band tone="ink" blueprint className="section">
+      <Band tone="brand" waveFrom="tint" waveTo="paper" className="section">
         <div className="container-page">
           <Reveal>
             <SectionHeading

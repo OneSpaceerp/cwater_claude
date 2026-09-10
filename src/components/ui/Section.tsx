@@ -1,5 +1,6 @@
 import type { ElementType, ReactNode } from 'react';
 import { cn } from '@/lib/utils';
+import { Wave, type Surface } from './Wave';
 import { pad } from '@/lib/utils';
 
 /**
@@ -90,6 +91,17 @@ export function SectionHeading({
         >
           {title}
         </Tag>
+        {/* The short rule under the heading. It replaces the drafting tick that
+            used to sit on the card corner: same job — marking where a section
+            starts — in the softer register the rest of the page now speaks. */}
+        <span
+          aria-hidden
+          className={cn(
+            'block h-0.5 w-14 rounded-full',
+            align === 'center' && 'mx-auto',
+            isLight ? 'bg-signal-300' : 'bg-signal-500',
+          )}
+        />
         {lead ? (
           <p className={cn('text-lead max-w-2xl', isLight ? 'text-ink-200' : 'text-ink-600')}>{lead}</p>
         ) : null}
@@ -103,8 +115,19 @@ export function SectionHeading({
  * A full-bleed band. `tone="ink"` switches the whole subtree to the dark
  * technical canvas, including cards, rules and focus rings.
  */
+/** Which divider surface each band tone paints as. */
+const SURFACE: Record<string, Surface> = {
+  paper: 'paper',
+  mist: 'tint',
+  brand: 'brand',
+  ink: 'deep',
+  'ink-deep': 'deep',
+};
+
 export function Band({
   tone = 'paper',
+  waveFrom,
+  waveTo,
   blueprint,
   children,
   className,
@@ -112,7 +135,11 @@ export function Band({
   as: Tag = 'section',
   ...rest
 }: {
-  tone?: 'paper' | 'mist' | 'ink' | 'ink-deep';
+  tone?: 'paper' | 'mist' | 'brand' | 'ink' | 'ink-deep';
+  /** Curve into this band from the surface above it. */
+  waveFrom?: Surface;
+  /** Curve out of this band into the surface below it. */
+  waveTo?: Surface;
   /** Lays the fine drafting grid behind the band. Dark tones only. */
   blueprint?: boolean;
   children: ReactNode;
@@ -122,17 +149,32 @@ export function Band({
 } & Record<string, unknown>) {
   const tones: Record<string, string> = {
     paper: 'bg-white text-ink-900',
-    mist: 'bg-ink-50 text-ink-900',
+    /* Was ink-50, a neutral slate. The tint now carries the brand hue, which
+       is what makes an alternating page read as water rather than as grey. */
+    mist: 'bg-signal-50 text-ink-900',
+    /* The saturated brand band — the section that states the proposition in
+       full-bleed colour. signal-800 rather than the brighter 600: at 600 the
+       eyebrow colour used on every dark band reads 2.75:1, so the band would
+       have needed its own set of text colours. At 800 every colour already in
+       use on ink clears AA unchanged, down to signal-300 at 4.8:1. */
+    brand: 'theme-dark on-brand text-white',
     ink: 'theme-dark bg-ink-950 text-ink-100',
     'ink-deep': 'theme-dark bg-[#03070C] text-ink-100',
   };
+  const surface = SURFACE[tone];
   return (
-    <Tag
-      id={id}
-      className={cn('relative', tones[tone], blueprint && 'blueprint', className)}
-      {...rest}
-    >
-      {children}
-    </Tag>
+    <>
+      {waveFrom ? <Wave from={waveFrom} to={surface} /> : null}
+      <Tag
+        id={id}
+        className={cn('relative', tones[tone], blueprint && 'blueprint', className)}
+        {...rest}
+      >
+        {children}
+      </Tag>
+      {/* Flipped, so the curve dips out of this band rather than repeating the
+          same rise twice and reading as a pattern. */}
+      {waveTo ? <Wave from={surface} to={waveTo} flip /> : null}
+    </>
   );
 }

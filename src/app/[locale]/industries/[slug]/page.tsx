@@ -116,7 +116,7 @@ export default async function IndustryPage({
       </Band>
 
       {/* ---- Risks ---- */}
-      <Band tone="ink" className="section-tight">
+      <Band tone="brand" waveFrom="tint" waveTo="tint" className="section-tight">
         <div className="container-page">
           <Reveal>
             <SectionHeading
@@ -129,7 +129,7 @@ export default async function IndustryPage({
           <RevealGroup className="mt-10 grid gap-px bg-white/10 sm:grid-cols-3">
             {industry.risks.map((risk) => (
               <RevealItem key={risk.id}>
-                <div className="flex h-full flex-col bg-ink-950 p-6 sm:p-7">
+                <div className="flex h-full flex-col bg-white/[0.08] p-6 sm:p-7">
                   {risk.icon ? <Icon name={risk.icon} size={22} className="mb-4 text-signal-400" /> : null}
                   <p className="font-display text-base leading-snug font-semibold tracking-tight text-white">
                     {t(risk.label, locale)}

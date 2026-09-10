@@ -131,7 +131,7 @@ export default async function PartnerPage({
       </Band>
 
       {/* ---- Signal path ---- */}
-      <Band tone="ink-deep" blueprint className="section">
+      <Band tone="brand" waveFrom="paper" waveTo="tint" className="section">
         <div className="container-page">
           <Reveal>
             <SectionHeading
@@ -144,7 +144,7 @@ export default async function PartnerPage({
           <RevealGroup as="ol" className="mt-12 grid gap-px bg-white/10 sm:grid-cols-3 lg:grid-cols-6">
             {partner.flow.map((stage, i) => (
               <RevealItem as="li" key={stage.id}>
-                <div className="flex h-full flex-col bg-ink-950 p-5 sm:p-6">
+                <div className="flex h-full flex-col bg-white/[0.08] p-5 sm:p-6">
                   <div className="mb-5 flex items-center justify-between gap-3">
                     <span className="u-label text-ink-500">{pad(i + 1)}</span>
                     <Icon name={stage.icon} size={20} className="text-signal-400" />

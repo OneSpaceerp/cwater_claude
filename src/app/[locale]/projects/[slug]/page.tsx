@@ -90,6 +90,7 @@ export default async function ProjectPage({
             </div>
           </dl>
         }
+        sweepTo="tint"
       />
 
       {/* ---- Illustrative notice ---- */}
