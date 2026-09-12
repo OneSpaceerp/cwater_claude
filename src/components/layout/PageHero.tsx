@@ -57,7 +57,7 @@ export function PageHero({
   sweepTo?: 'paper' | 'tint' | 'none';
 }) {
   return (
-    <section className="theme-dark blueprint relative overflow-hidden bg-ink-950 pt-[var(--header-h)]">
+    <section className="theme-dark water-ground water-shimmer relative overflow-hidden pt-[var(--header-h)]">
       {image ? (
         <div aria-hidden className="pointer-events-none absolute inset-0">
           <Image

@@ -169,7 +169,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         size="large"
         image={aboutStoreImage}
         aside={
-          <div className="border border-white/12 bg-ink-900/85 p-6">
+          <div className="border border-white/12 bg-ink-900/85 backdrop-blur-md p-6">
             <p className="u-label text-signal-300">{t({ en: 'Serving industry since', ar: 'نخدم الصناعة منذ' }, locale)}</p>
             {/* Published on C-Water's current site: "over 18 years". */}
             <p className="tnum mt-3 font-display text-5xl font-bold tracking-tight text-white">

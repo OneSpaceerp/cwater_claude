@@ -80,7 +80,7 @@ export function Header({ locale }: { locale: Locale }) {
     <>
       <a
         href="#main"
-        className="sr-only-focusable fixed start-4 top-4 z-[100] rounded-sm bg-signal-600 px-4 py-2.5 text-sm font-medium text-white"
+        className="sr-only-focusable fixed start-4 top-4 z-[100] rounded-full bg-signal-400 px-5 py-2.5 text-sm font-semibold text-signal-950"
       >
         {t(D.skipToContent, locale)}
       </a>

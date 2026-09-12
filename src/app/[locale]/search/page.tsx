@@ -75,7 +75,7 @@ export default async function SearchPage({ params }: { params: Promise<{ locale:
               />
               <button
                 type="submit"
-                className="shrink-0 rounded-sm bg-signal-600 px-6 text-[0.9375rem] font-medium text-white transition-colors hover:bg-signal-700"
+                className="shrink-0 rounded-full bg-signal-400 px-7 text-[0.9375rem] font-semibold text-signal-950 transition-colors hover:bg-signal-300"
               >
                 {label}
               </button>

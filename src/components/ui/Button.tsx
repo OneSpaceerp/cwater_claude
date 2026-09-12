@@ -14,11 +14,11 @@ const base =
   'disabled:pointer-events-none disabled:opacity-45 whitespace-nowrap';
 
 const variants: Record<Variant, string> = {
-  /* Solid brand blue, one step down the same ramp.
-     White on signal-500 is 3.62:1 — below AA for the 15px button label — so the
-     solid fill uses signal-600 (5.21:1). signal-500 remains the brand accent
-     everywhere it carries no text: flow lines, icons, focus rings and marks. */
-  primary: 'bg-signal-600 text-white hover:bg-signal-700 active:bg-signal-800',
+  /* A light fill carrying dark text, as in the supplied design. It measures
+     8.64:1 — better than the 5.21:1 the old dark-fill-on-white-text model
+     reached — and it is what makes the call to action read as water rather
+     than as a standard blue button. */
+  primary: 'bg-signal-400 text-signal-950 hover:bg-signal-300 active:bg-signal-200',
   /* Ink-filled. Pairs with primary without competing for the same attention. */
   secondary: 'bg-ink-950 text-white hover:bg-ink-800 active:bg-ink-900',
   /* Hairline on light canvases. */

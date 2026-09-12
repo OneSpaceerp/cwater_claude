@@ -157,9 +157,9 @@ export function Band({
        eyebrow colour used on every dark band reads 2.75:1, so the band would
        have needed its own set of text colours. At 800 every colour already in
        use on ink clears AA unchanged, down to signal-300 at 4.8:1. */
-    brand: 'theme-dark on-brand text-white',
-    ink: 'theme-dark bg-ink-950 text-ink-100',
-    'ink-deep': 'theme-dark bg-[#03070C] text-ink-100',
+    brand: 'theme-dark on-brand water-gradient text-white',
+    ink: 'theme-dark water-ground text-ink-100',
+    'ink-deep': 'theme-dark water-ground text-ink-100',
   };
   const surface = SURFACE[tone];
   return (

@@ -16,7 +16,7 @@ export default function NotFound() {
           </p>
           <Link
             href="/en"
-            className="mt-7 inline-flex h-11 items-center rounded-sm bg-signal-600 px-6 text-[0.9375rem] font-medium text-white transition-colors hover:bg-signal-700"
+            className="mt-7 inline-flex h-11 items-center rounded-full bg-signal-400 px-7 text-[0.9375rem] font-semibold text-signal-950 transition-colors hover:bg-signal-300"
           >
             Go to C-Water
           </Link>

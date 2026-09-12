@@ -86,7 +86,7 @@ export default async function ProductPage({
         primaryCta={{ label: t(D.requestQuote, locale), href: quoteHref }}
         secondaryCta={{ label: t(D.talkToEngineer, locale), href: engineerHref }}
         aside={
-          <dl className="border border-white/12 bg-ink-900/85 divide-y divide-white/10">
+          <dl className="border border-white/12 bg-ink-900/85 backdrop-blur-md divide-y divide-white/10">
             <div className="flex items-baseline justify-between gap-4 p-4">
               <dt className="u-label text-ink-500">{t(D.partner, locale)}</dt>
               <dd className="latin text-[0.9375rem] font-medium text-white">{partner.legalName}</dd>

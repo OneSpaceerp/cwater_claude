@@ -75,7 +75,7 @@ export default async function ProjectPage({
         primaryCta={{ label: t(D.discussSimilarChallenge, locale), href: localePath(locale, 'request-solution') }}
         size="large"
         aside={
-          <dl className="divide-y divide-white/10 border border-white/12 bg-ink-900/85">
+          <dl className="divide-y divide-white/10 border border-white/12 bg-ink-900/85 backdrop-blur-md">
             <div className="flex items-baseline justify-between gap-4 p-4">
               <dt className="u-label text-ink-500">{t(D.industry, locale)}</dt>
               <dd className="text-end text-[0.875rem] text-ink-100">{industry ? t(industry.title, locale) : '—'}</dd>

@@ -35,7 +35,7 @@ export function Hero({ locale }: { locale: Locale }) {
         };
 
   return (
-    <section className="theme-dark blueprint relative overflow-hidden bg-ink-950 pt-[var(--header-h)]">
+    <section className="theme-dark water-ground water-shimmer relative overflow-hidden pt-[var(--header-h)]">
       {/*
         The photograph sits behind the proposition only. Its vertical gradient
         reaches solid ink well before the treatment line below, because that

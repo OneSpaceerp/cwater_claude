@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { notFound } from 'next/navigation';
-import { Newsreader, Inter, IBM_Plex_Mono, Cairo } from 'next/font/google';
+import { Cormorant_Garamond, Plus_Jakarta_Sans, IBM_Plex_Mono, Cairo } from 'next/font/google';
 import type { ReactNode } from 'react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
@@ -15,9 +15,10 @@ import { cn } from '@/lib/utils';
 /**
  * Typography.
  *
- * Newsreader carries the editorial headlines — a screen-first serif with
- * moderate contrast, which is what gives the pages their considered,
- * publication feel rather than a software one. Inter takes the technical body
+ * Cormorant Garamond carries the editorial headlines — a high-contrast
+ * garalde with a small x-height, which is why the scale below runs a step
+ * larger and heavier than a workhorse serif would. Plus Jakarta Sans takes the
+ * technical body
  * copy. IBM Plex Mono handles every label, spec key and instrument readout,
  * which is what gives the interface its measured, engineered register.
  *
@@ -28,21 +29,21 @@ import { cn } from '@/lib/utils';
  *
  * All four are self-hosted by next/font: no external requests, no layout shift.
  */
-const newsreader = Newsreader({
+const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
   /* 400 carries the display sizes: a serif this large wants the lighter
      cut, and the weight the old grotesque needed for presence now comes
      from the letterforms themselves. */
-  weight: ['400', '500', '600', '700'],
+  weight: ['500', '600', '700'],
   style: ['normal', 'italic'],
-  variable: '--font-newsreader',
+  variable: '--font-cormorant',
   display: 'swap',
 });
 
-const inter = Inter({
+const jakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
-  weight: ['400', '500', '600'],
-  variable: '--font-inter',
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-jakarta',
   display: 'swap',
 });
 
@@ -124,7 +125,7 @@ export default async function LocaleLayout({
     <html
       lang={htmlLang}
       dir={dir}
-      className={cn(newsreader.variable, inter.variable, plexMono.variable, cairo.variable)}
+      className={cn(cormorant.variable, jakarta.variable, plexMono.variable, cairo.variable)}
       suppressHydrationWarning
     >
       <body className="min-h-screen antialiased">

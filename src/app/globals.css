@@ -9,18 +9,34 @@
    ========================================================================= */
 
 @theme {
-  /* --- Brand: signal blue ------------------------------------------------ */
-  --color-signal-50: #eef8fd;
-  --color-signal-100: #d5edfa;
-  --color-signal-200: #addcf4;
-  --color-signal-300: #77c6ec;
-  --color-signal-400: #3facdf;
-  --color-signal-500: #188ece; /* ← exact brand value */
-  --color-signal-600: #0f72ad;
-  --color-signal-700: #0c5b8b;
-  --color-signal-800: #0d4c72;
-  --color-signal-900: #10405f;
-  --color-signal-950: #0a2941;
+  /* --- Brand: the ocean ramp ---------------------------------------------
+     Taken from the supplied design. It runs a step cooler than the logo's
+     #188ECE, which is kept below as --color-brand for the mark itself and for
+     anything that has to sit beside it. The ramp fills the slots the whole
+     site already references, so the repaint needed no call-site changes.
+     ---------------------------------------------------------------------- */
+  --color-signal-50: #f0fcfd;
+  --color-signal-100: #d7f7fc;
+  --color-signal-200: #a3effa;
+  --color-signal-300: #52dbf6;
+  --color-signal-400: #0bc5ea;
+  --color-signal-500: #00a4ce;
+  --color-signal-600: #0087b3;
+  --color-signal-700: #00658f;
+  --color-signal-800: #024b6e;
+  --color-signal-900: #012641;
+  --color-signal-950: #01192e;
+
+  /* The logo's own blue, unchanged. */
+  --color-brand: #188ece;
+
+  /* --- Secondary accent: teal ---------------------------------------------
+     600 is the only step that clears AA on paper (4.84); 500 reads 2.98 and is
+     reserved for fills and marks that carry no text. */
+  --color-teal-400: #02c39a;
+  --color-teal-500: #00a896;
+  --color-teal-600: #028074;
+  --color-mint: #edf9f9;
 
   /* --- Brand: wordmark steel --------------------------------------------- */
   --color-steel-50: #f7f7f7;
@@ -74,39 +90,38 @@
      Technical: IBM Plex Mono  — instrument labels, data, spec tables
      Arabic   : Cairo          — contemporary Arabic sans, display through text
      ------------------------------------------------------------------------ */
-  --font-display: var(--font-newsreader), 'Newsreader', Georgia, 'Times New Roman', serif;
-  --font-sans: var(--font-inter), 'Inter', system-ui, sans-serif;
+  --font-display: var(--font-cormorant), 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-sans: var(--font-jakarta), 'Plus Jakarta Sans', system-ui, sans-serif;
   --font-mono: var(--font-plex-mono), 'IBM Plex Mono', ui-monospace, monospace;
   --font-arabic: var(--font-cairo), 'Cairo', 'Noto Sans Arabic', system-ui, sans-serif;
 
   /* --- Editorial type scale (desktop caps; clamped for fluidity) ---------- */
-  /* The old values were cut for a tight industrial grotesque. A serif needs
-     the opposite of all three: room between lines for the ascenders and
-     descenders, tracking near zero because the serifs already do the spacing
-     work, and a lighter weight because the letterforms carry their own
-     presence at size. */
-  --text-display: clamp(2.75rem, 1.2rem + 6.4vw, 5.5rem);
-  --text-display--line-height: 1.04;
-  --text-display--letter-spacing: -0.018em;
-  --text-display--font-weight: 400;
+  /* Cut for Cormorant Garamond. It is a garalde with a small x-height and high
+     stroke contrast, so it needs the opposite treatment to the serif before it:
+     a step larger at every level to hold the same optical size, and 700 rather
+     than 400, because its thin strokes disappear at display sizes otherwise. */
+  --text-display: clamp(3rem, 1.3rem + 7vw, 6rem);
+  --text-display--line-height: 1.1;
+  --text-display--letter-spacing: -0.02em;
+  --text-display--font-weight: 700;
 
-  --text-h1: clamp(2.25rem, 1.1rem + 4.6vw, 4.25rem);
-  --text-h1--line-height: 1.08;
-  --text-h1--letter-spacing: -0.015em;
-  --text-h1--font-weight: 400;
+  --text-h1: clamp(2.5rem, 1.2rem + 5vw, 4.75rem);
+  --text-h1--line-height: 1.12;
+  --text-h1--letter-spacing: -0.018em;
+  --text-h1--font-weight: 700;
 
-  --text-h2: clamp(1.75rem, 1rem + 2.9vw, 3rem);
-  --text-h2--line-height: 1.14;
-  --text-h2--letter-spacing: -0.012em;
-  --text-h2--font-weight: 500;
+  --text-h2: clamp(2rem, 1.1rem + 3.2vw, 3.5rem);
+  --text-h2--line-height: 1.16;
+  --text-h2--letter-spacing: -0.014em;
+  --text-h2--font-weight: 700;
 
-  --text-h3: clamp(1.375rem, 1rem + 1.4vw, 2rem);
-  --text-h3--line-height: 1.22;
+  --text-h3: clamp(1.5rem, 1.05rem + 1.6vw, 2.25rem);
+  --text-h3--line-height: 1.25;
   --text-h3--letter-spacing: -0.008em;
-  --text-h3--font-weight: 500;
+  --text-h3--font-weight: 600;
 
-  --text-h4: clamp(1.125rem, 0.95rem + 0.7vw, 1.4rem);
-  --text-h4--line-height: 1.32;
+  --text-h4: clamp(1.25rem, 1rem + 0.8vw, 1.55rem);
+  --text-h4--line-height: 1.34;
   --text-h4--letter-spacing: -0.004em;
   --text-h4--font-weight: 600;
 
@@ -317,6 +332,77 @@
      A fine technical grid laid behind dark canvases. Two densities layered
      so it reads as drafting paper rather than as a pattern swatch.
      ------------------------------------------------------------------------ */
+  /* --- Water grounds -------------------------------------------------------
+     The dark sections stop being flat ink and become lit water: three offset
+     radial pools over a deep base. Taken from the supplied design, with the
+     base darkened to ocean-900 so the muted text that already sits on these
+     bands keeps its headroom.
+     ---------------------------------------------------------------------- */
+  .water-ground {
+    background-color: var(--color-signal-900);
+    background-image:
+      radial-gradient(at 80% 20%, rgb(2 195 154 / 0.22) 0px, transparent 60%),
+      radial-gradient(at 10% 60%, rgb(11 197 234 / 0.28) 0px, transparent 65%),
+      radial-gradient(at 90% 80%, rgb(0 101 143 / 0.45) 0px, transparent 50%);
+  }
+
+  /* The proposition band. The supplied gradient ended on #009688, where white
+     reads 3.67:1 — below AA for the body copy that sits on it. These stops keep
+     the same blue-to-teal journey with white at 6.25:1 at the lightest point. */
+  .water-gradient {
+    background-image: linear-gradient(135deg, #004d6b 0%, #006a7d 50%, #00695c 100%);
+  }
+
+  /* Caustic shimmer: a fine dot field over the ground, screened so it reads as
+     light on water rather than as a printed pattern. */
+  .water-shimmer::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    /* The supplied design runs this at 0.2 over a bare gradient. Here the
+       heroes also carry a photograph, so the field is pulled back to sit under
+       the image rather than compete with it. */
+    opacity: 0.12;
+    mix-blend-mode: screen;
+    background-image: radial-gradient(var(--color-signal-300) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  /* --- Glass --------------------------------------------------------------
+     Two weights: one for panels on the dark ground, one for tiles on the
+     gradient band. Both degrade to a plain translucent fill where
+     backdrop-filter is unsupported, which is why each carries a background
+     colour rather than relying on the blur alone.
+     ---------------------------------------------------------------------- */
+  .glass-dark {
+    background-color: rgb(4 39 63 / 0.72);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgb(82 219 246 / 0.22);
+  }
+  .glass-light {
+    background-color: rgb(255 255 255 / 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgb(255 255 255 / 0.18);
+  }
+
+  /* The six-by-two dot block used as a quiet accent beside section headings. */
+  .dot-grid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 0.5rem;
+    width: 7rem;
+    opacity: 0.4;
+  }
+  .dot-grid > span {
+    width: 0.375rem;
+    height: 0.375rem;
+    border-radius: 9999px;
+    background-color: var(--color-signal-400);
+  }
+
   .blueprint {
     position: relative;
     isolation: isolate;
@@ -694,6 +780,13 @@
      utility class loses to it. */
   .theme-dark.on-brand {
     background-color: var(--color-signal-800);
+  }
+
+  /* Same reason as the brand band: .theme-dark paints its own ink background
+     and a single class loses to it, so the water ground states its base with
+     two. signal-900 is the base the supplied design specifies. */
+  .theme-dark.water-ground {
+    background-color: var(--color-signal-900);
   }
 
   /*
